@@ -5,6 +5,22 @@ buildscript {
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.40.5"
     }
+//    repositories {
+//        maven {
+//            url "https://nexus.partdp.ir/repository/part-android/"
+//            artifactUrls "https://nexus.partdp.ir/repository/part-android/"
+//            credentials {
+//                username "android-user"
+//                password "EL2BB+*wkXEaydY=/2>2Kx-tV4CV-%"
+//            }
+//        }
+//
+//        google()
+//        mavenCentral()
+//
+//        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+//    }
+
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id 'com.android.application' version '7.3.0' apply false
