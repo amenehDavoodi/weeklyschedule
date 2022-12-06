@@ -78,6 +78,11 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
 
+    //coroutine
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.6"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+
 
     //room
     def room_version = "2.4.3"
@@ -90,12 +95,6 @@ dependencies {
     // To use Kotlin Symbol Processing (KSP)
     annotationProcessor ("androidx.room:room-compiler:$room_version")
 
-    // optional - RxJava2 support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
-
-    // optional - RxJava3 support for Room
-    implementation "androidx.room:room-rxjava3:$room_version"
-
     // optional - Guava support for Room, including Optional and ListenableFuture
     implementation "androidx.room:room-guava:$room_version"
 
@@ -104,4 +103,5 @@ dependencies {
 
     // optional - Paging 3 Integration
     implementation "androidx.room:room-paging:$room_version"
+
 }
