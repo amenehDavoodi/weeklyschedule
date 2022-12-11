@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class WeeklySchedule(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id:Int,
     val dayId:Int,
     val courseId:Int
