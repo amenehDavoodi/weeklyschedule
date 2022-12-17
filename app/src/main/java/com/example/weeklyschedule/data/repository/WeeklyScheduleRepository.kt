@@ -6,14 +6,21 @@ import com.example.weeklyschedule.data.local.daos.WeeklyScheduleDao
 import kotlinx.coroutines.flow.Flow
 
 class WeeklyScheduleRepository (private val weeklyDao: WeeklyScheduleDao){
-    val allWeek: Flow<List<WeeklySchedule>> = weeklyDao.getAllWeeklySchedule()
 
-    // By default Room runs suspend queries off the main thread, therefore, we don't need to
-    // implement anything else to ensure we're not doing long running database work
-    // off the main thread.
+    val allDaysOfWeek: Flow<List<WeeklySchedule>> = weeklyDao.getAllWeeklySchedule()
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(weeklySchedule: WeeklySchedule) {
         weeklyDao.insert(weeklySchedule)
+    }
+    fun getAllDays() {
+        weeklyDao.getAllWeeklySchedule()
+    }
+    suspend fun deleteADay(id: Int) {
+        weeklyDao.deleteADay(id)
+    }
+    suspend fun update(weeklySchedule: WeeklySchedule) {
+        weeklyDao.updateADay(weeklySchedule)
     }
 }

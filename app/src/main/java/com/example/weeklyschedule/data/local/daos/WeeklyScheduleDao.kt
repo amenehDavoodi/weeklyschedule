@@ -15,6 +15,9 @@ interface WeeklyScheduleDao {
     @Query("SELECT * FROM WeeklySchedule")
    fun getAllWeeklySchedule(): Flow<List<WeeklySchedule>>
 
+    @Query("SELECT * FROM WeeklySchedule WHERE dayId = :id")
+    fun observeADayById(id: Int): Flow<WeeklySchedule>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(weeklySchedule:WeeklySchedule)
 
@@ -23,5 +26,6 @@ interface WeeklyScheduleDao {
 
     @Update
     suspend fun updateADay(weeklySchedule:WeeklySchedule)
+
 
 }
