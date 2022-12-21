@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import com.example.weeklyschedule.data.local.WeeklySchedule
 import com.example.weeklyschedule.data.local.daos.WeeklyScheduleDao
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class WeeklyScheduleRepository (private val weeklyDao: WeeklyScheduleDao){
 
@@ -18,7 +19,7 @@ class WeeklyScheduleRepository (private val weeklyDao: WeeklyScheduleDao){
         weeklyDao.getAllWeeklySchedule()
     }
     suspend fun deleteADay(id: Int) {
-        weeklyDao.deleteADay(id)
+//        weeklyDao.deleteADay(id)
     }
     suspend fun update(weeklySchedule: WeeklySchedule) {
         weeklyDao.updateADay(weeklySchedule)

@@ -21,8 +21,8 @@ interface WeeklyScheduleDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(weeklySchedule:WeeklySchedule)
 
-    @Delete
-    suspend fun deleteADay(id:Int)
+//    @Delete
+//    suspend fun deleteADay(id:Int)
 
     @Update
     suspend fun updateADay(weeklySchedule:WeeklySchedule)
