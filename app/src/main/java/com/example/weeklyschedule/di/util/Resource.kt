@@ -1,4 +1,4 @@
-package com.example.weeklyschedule.domain.util
+package com.example.weeklyschedule.di.domain.util
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null)
 {

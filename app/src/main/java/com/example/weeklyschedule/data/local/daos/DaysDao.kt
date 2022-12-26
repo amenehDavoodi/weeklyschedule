@@ -2,7 +2,7 @@ package com.example.weeklyschedule.data.local.daos
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.example.weeklyschedule.data.local.Days
+import com.example.weeklyschedule.data.local.entities.Days
 
 @Dao
 interface DaysDao {

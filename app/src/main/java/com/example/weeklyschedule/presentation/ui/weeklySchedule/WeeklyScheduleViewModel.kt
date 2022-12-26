@@ -3,8 +3,8 @@ package com.example.weeklyschedule.presentation.ui.weeklySchedule
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weeklyschedule.data.local.WeeklySchedule
-import com.example.weeklyschedule.data.repository.WeeklyScheduleRepository
+import com.example.weeklyschedule.data.local.entities.WeeklySchedule
+import com.example.weeklyschedule.data.repository.WeeklyScheduleRepositoryImp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeeklyScheduleViewModel @Inject constructor(
-    private val repository: WeeklyScheduleRepository,
+    private val repository: WeeklyScheduleRepositoryImp,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
