@@ -1,14 +1,15 @@
 package com.example.weeklyschedule.di
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
 import com.example.weeklyschedule.data.local.daos.WeeklyScheduleDao
 import com.example.weeklyschedule.data.local.database.WeeklyScheduleRoomDataBase
+import com.example.weeklyschedule.data.local.database.WeeklyScheduleRoomDataBase.Companion.DATABASE_NAME
 import com.example.weeklyschedule.data.repository.WeeklyScheduleRepositoryImp
+import com.example.weeklyschedule.domain.WeeklyScheduleRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -27,24 +28,32 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext appContext: Context): WeeklyScheduleRoomDataBase {
+    fun provideDatabase( appContext: Application): WeeklyScheduleRoomDataBase {
         return Room.databaseBuilder(
             appContext,
             WeeklyScheduleRoomDataBase::class.java,
-            "WeeklyScheduleDataBase.db"
+            DATABASE_NAME
         ).build()
     }
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-object RepositoryModule {
 
     @Provides
     @Singleton
-    fun weeklyScheduleRepository(
-       @WeeklyDaoSource weeklyDao:WeeklyScheduleDao
-    ): WeeklyScheduleRepositoryImp {
-        return WeeklyScheduleRepositoryImp(weeklyDao)
+    fun weeklyScheduleRepository(db:WeeklyScheduleRoomDataBase
+    ): WeeklyScheduleRepository {
+        return WeeklyScheduleRepositoryImp(db.weeklyScheduleDao)
     }
+
 }
+
+//@Module
+//@InstallIn(SingletonComponent::class)
+//object RepositoryModule {
+//
+//    @Provides
+//    @Singleton
+//    fun weeklyScheduleRepository(
+//       @WeeklyDaoSource weeklyDao:WeeklyScheduleDao
+//    ): WeeklyScheduleRepositoryImp {
+//        return WeeklyScheduleRepositoryImp(weeklyDao)
+//    }
+//}

@@ -28,7 +28,9 @@ class WeeklyScheduleRepositoryImp (private val weeklyDao: WeeklyScheduleDao):
     override suspend fun update(weeklySchedule: WeeklySchedule) {
         weeklyDao.updateADay(weeklySchedule)
     }
-     fun getADay(id :Int) {
+
+    override suspend fun getDayById(id: Int) {
         weeklyDao.observeADayById(id)
     }
+
 }

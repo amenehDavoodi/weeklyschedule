@@ -8,4 +8,5 @@ interface WeeklyScheduleRepository {
     suspend fun insert(weeklySchedule: WeeklySchedule)
     suspend fun deleteADay(id: Int)
     suspend fun update(weeklySchedule: WeeklySchedule)
+    suspend fun getDayById(id: Int)
 }
