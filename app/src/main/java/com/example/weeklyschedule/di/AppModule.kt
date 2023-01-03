@@ -15,16 +15,10 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-annotation class WeeklyDaoSource
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-
-//    @Provides
-//    fun provideWeeklyDao(database: WeeklyScheduleRoomDataBase) = Unit
 
     @Provides
     @Singleton
@@ -45,15 +39,3 @@ object AppModule {
 
 }
 
-//@Module
-//@InstallIn(SingletonComponent::class)
-//object RepositoryModule {
-//
-//    @Provides
-//    @Singleton
-//    fun weeklyScheduleRepository(
-//       @WeeklyDaoSource weeklyDao:WeeklyScheduleDao
-//    ): WeeklyScheduleRepositoryImp {
-//        return WeeklyScheduleRepositoryImp(weeklyDao)
-//    }
-//}
