@@ -13,7 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.weeklyschedule.presentation.ui.add_edit_schedule.AddEditScheduleScreen
 import com.example.weeklyschedule.presentation.ui.theme.WeeklyScheduleTheme
 import com.example.weeklyschedule.presentation.ui.util.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
