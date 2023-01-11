@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WeeklySchedule</string>
+    <string name="add_days_week_label">افزودن روزهای هفته</string>
 </resources>
