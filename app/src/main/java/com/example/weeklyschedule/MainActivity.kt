@@ -7,6 +7,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -20,15 +23,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+
             WeeklyScheduleTheme {
                 Surface(
                     color = MaterialTheme.colors.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = Screen.AddEditScreen.route){
-
-                        composable(route = Screen.AddEditScreen.route) {
-                            AddEditScheduleScreen(navController = navController)
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.AddEditScreen.route
+                    ) {
+                            composable(route = Screen.AddEditScreen.route) {
+                                AddEditScheduleScreen(navController = navController)
+                            }
                         }
                     }
                 }
