@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
+import com.example.weeklyschedule.data.local.DaysList
+import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.DropDownSelection
 import com.example.weeklyschedule.presentation.ui.theme.fontDefault
 
 @Composable
@@ -43,11 +45,8 @@ fun AddEditScheduleScreen(
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
 
-                    TextFieldWithIcons(
-                        stringResource(R.string.add_days_week_label),
-                        "اضافه کردن روزهای هفته",
-                        Icons.Default.DateRange
-                    )
+                    Text(stringResource(R.string.add_days_week_label))
+                    DropDownSelection(listContents = DaysList, label = "")
                 }
                 Column(
                     modifier = Modifier
