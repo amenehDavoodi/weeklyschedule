@@ -14,13 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
-import com.example.weeklyschedule.data.local.DaysList
 import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.DropDownSelection
-import com.example.weeklyschedule.presentation.ui.theme.fontDefault
 
 @Composable
 fun AddEditScheduleScreen(
@@ -46,32 +43,27 @@ fun AddEditScheduleScreen(
                 ) {
 
                     Text(stringResource(R.string.add_days_week_label))
-                    DropDownSelection(listContents = DaysList, label = "")
+                    DropDownSelection(listContents = viewModel.dayList.value, label = "")
                 }
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(16.dp),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
                         text = "افزودن تعداد زنگ ها در یک روز",
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp),
-                        fontFamily = fontDefault,
-                        fontSize = 16.sp,
-                        color = Color.White
                     )
 
-                    TextFieldWithIcons("تعداد زنگ ها", "اضافه کردن زنگ ها", Icons.Default.DateRange)
+                    TextFieldWithIcons("تعداد زنگ ها", "", Icons.Default.DateRange)
                 }
 
                 Row {
                     Button(modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
-                        .background(color = Color.Black), onClick = { }) {
+                        .padding(16.dp), onClick = { }) {
                         Text("افزودن")
                     }
                 }

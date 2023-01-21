@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DropDownSelection(listContents: List<String>, label: String) {
 
-    val text = remember { mutableStateOf("") } // initial value
+    val text = remember { mutableStateOf(listContents[0]) } // initial value
     val isOpen = remember { mutableStateOf(false) } // initial value
     val openCloseOfDropDownList: (Boolean) -> Unit = {
         isOpen.value = it
@@ -36,7 +36,6 @@ fun DropDownSelection(listContents: List<String>, label: String) {
                 value = text.value ,
                 onValueChange = { text.value = it },
                 label = { Text(text = label) },
-
                 trailingIcon = {
                     Icon(icon, "contentDescription",
                         Modifier.clickable { isOpen.value = true })
@@ -44,8 +43,11 @@ fun DropDownSelection(listContents: List<String>, label: String) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 10.dp, end = 10.dp)
+                    .background(Color.Transparent)
+
                 ,readOnly = true
                 ,singleLine = true
+
             )
             DropDownList(
                 requestToOpen = isOpen.value,
@@ -74,8 +76,8 @@ fun DropDownList(
 ) {
     DropdownMenu(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+            .padding(10.dp)
+            .background(Color.Transparent),
 //        toggle = {
 //            // Implement your toggle
 //        },
