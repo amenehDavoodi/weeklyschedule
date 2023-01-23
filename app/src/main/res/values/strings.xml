@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">WeeklySchedule</string>
     <string name="add_days_week_label">افزودن روزهای هفته</string>
+    <string name="title_count_of_breaks_a_day">افزودن تعداد زنگ ها در یک روز</string>
+    <string name="label_breaks">تعداد زنگ ها</string>
+    <string name="btn_add">افزودن</string>
 </resources>

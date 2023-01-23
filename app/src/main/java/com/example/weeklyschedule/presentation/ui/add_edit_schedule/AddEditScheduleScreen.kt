@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import com.example.weeklyschedule.R
 import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.DropDownSelection
 
+
 @Composable
 fun AddEditScheduleScreen(
     navController: NavController,
@@ -38,7 +39,7 @@ fun AddEditScheduleScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(16.dp),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
 
@@ -52,19 +53,20 @@ fun AddEditScheduleScreen(
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "افزودن تعداد زنگ ها در یک روز",
+
+                        text = stringResource(R.string.title_count_of_breaks_a_day),
                         modifier = Modifier
                             .fillMaxWidth()
                     )
 
-                    TextFieldWithIcons("تعداد زنگ ها", "", Icons.Default.DateRange)
+                    TextFieldWithIcons(stringResource(R.string.label_breaks), "", Icons.Default.DateRange)
                 }
 
                 Row {
                     Button(modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp), onClick = { }) {
-                        Text("افزودن")
+                        Text(stringResource(R.string.btn_add))
                     }
                 }
             }
