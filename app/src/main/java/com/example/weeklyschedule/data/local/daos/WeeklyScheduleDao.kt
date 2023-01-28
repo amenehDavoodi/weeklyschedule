@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +20,9 @@ interface WeeklyScheduleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(weeklySchedule: WeeklySchedule)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCourse(course: Courses)
 
 //    @Delete
 //    suspend fun deleteADay(id:Int)

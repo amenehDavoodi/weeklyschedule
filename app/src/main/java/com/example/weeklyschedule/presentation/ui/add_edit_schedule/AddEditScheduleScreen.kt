@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
+import com.example.weeklyschedule.data.local.CourseList
 import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.DropDownSelection
 
 
@@ -42,16 +43,6 @@ fun AddEditScheduleScreen(
                         .padding(16.dp),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-
-                    Text(stringResource(R.string.add_days_week_label))
-                    DropDownSelection(listContents = viewModel.dayList.value, label = "")
-                }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
                     Text(
 
                         text = stringResource(R.string.title_count_of_breaks_a_day),
@@ -61,11 +52,25 @@ fun AddEditScheduleScreen(
 
                     TextFieldWithIcons(stringResource(R.string.label_breaks), "", Icons.Default.DateRange)
                 }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Text(stringResource(R.string.add_days_week_label))
+                    DropDownSelection(listContents = viewModel.dayList.value, label = "")
+                }
 
                 Row {
                     Button(modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp), onClick = { }) {
+                        .padding(16.dp), onClick = {
+                        for (i in 1 until (CourseList.size)) {
+                            viewModel.addNewCourse(i,CourseList[i])
+                        }
+                    }) {
                         Text(stringResource(R.string.btn_add))
                     }
                 }

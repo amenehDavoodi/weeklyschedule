@@ -3,6 +3,7 @@ package com.example.weeklyschedule.data.repository
 import androidx.annotation.WorkerThread
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
 import com.example.weeklyschedule.data.local.daos.WeeklyScheduleDao
+import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.domain.WeeklyScheduleRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +20,11 @@ class WeeklyScheduleRepositoryImp (private val weeklyDao: WeeklyScheduleDao):
     override suspend fun insert(weeklySchedule: WeeklySchedule) {
         weeklyDao.insert(weeklySchedule)
     }
+
+    override suspend fun insertCourse(course: Courses) {
+        weeklyDao.insertCourse(course)
+    }
+
     fun getAllDays() {
         weeklyDao.getAllWeeklySchedule()
     }
