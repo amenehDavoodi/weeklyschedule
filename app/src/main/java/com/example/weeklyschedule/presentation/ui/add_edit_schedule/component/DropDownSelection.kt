@@ -42,7 +42,6 @@ fun DropDownSelection(listContents: List<String>, label: String) {
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.dp, end = 10.dp)
                     .background(Color.Transparent)
 
                 ,readOnly = true
@@ -92,7 +91,7 @@ fun DropDownList(
                     selectedString(it)
                 }
             ) {
-                Text(it, modifier = Modifier.wrapContentWidth())
+                Text(it, modifier = Modifier.fillMaxWidth())
             }
         }
     }

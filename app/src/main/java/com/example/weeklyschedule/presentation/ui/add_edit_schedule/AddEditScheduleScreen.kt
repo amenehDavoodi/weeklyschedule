@@ -44,13 +44,10 @@ fun AddEditScheduleScreen(
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-
-                        text = stringResource(R.string.title_count_of_breaks_a_day),
-                        modifier = Modifier
-                            .fillMaxWidth()
+                        text = stringResource(R.string.title_count_of_breaks_a_day)
                     )
 
-                    TextFieldWithIcons(stringResource(R.string.label_breaks), "", Icons.Default.DateRange)
+                    TextFieldWithIcons("", "", Icons.Default.DateRange)
                 }
                 Column(
                     modifier = Modifier
@@ -66,6 +63,7 @@ fun AddEditScheduleScreen(
                 Row {
                     Button(modifier = Modifier
                         .fillMaxWidth()
+
                         .padding(16.dp), onClick = {
                         for (i in 1 until (CourseList.size)) {
                             viewModel.addNewCourse(i,CourseList[i])
