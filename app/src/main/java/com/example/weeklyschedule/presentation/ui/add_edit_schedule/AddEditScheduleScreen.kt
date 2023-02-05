@@ -37,17 +37,25 @@ fun AddEditScheduleScreen(
                 .padding(16.dp)
         ) {
             item {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.SpaceBetween
+                Row(
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    Text(
-                        text = stringResource(R.string.title_count_of_breaks_a_day)
-                    )
 
-                    TextFieldWithIcons("", "", Icons.Default.DateRange)
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = stringResource(R.string.title_count_of_breaks_a_day)
+                        )
+
+                        TextFieldWithIcons("", "", Icons.Default.DateRange,Modifier.fillMaxSize())
+                    }
+
+
                 }
                 Column(
                     modifier = Modifier
@@ -59,6 +67,27 @@ fun AddEditScheduleScreen(
                     Text(stringResource(R.string.add_days_week_label))
                     DropDownSelection(listContents = viewModel.dayList.value, label = "")
                 }
+                Row {
+
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .weight(1F),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        DropDownSelection(listContents = viewModel.dayList.value, label = "")
+                    }
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .weight(1F),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        DropDownSelection(listContents = viewModel.dayList.value, label = "")
+                    }
+                }
 
                 Row {
                     Button(modifier = Modifier
@@ -66,7 +95,7 @@ fun AddEditScheduleScreen(
 
                         .padding(16.dp), onClick = {
                         for (i in 1 until (CourseList.size)) {
-                            viewModel.addNewCourse(i,CourseList[i])
+                            viewModel.addNewCourse(i, CourseList[i])
                         }
                     }) {
                         Text(stringResource(R.string.btn_add))

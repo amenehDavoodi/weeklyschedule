@@ -1,6 +1,5 @@
 package com.example.weeklyschedule.presentation.ui.add_edit_schedule
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -12,19 +11,20 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.TextFieldValue
 
 @Composable
-fun TextFieldWithIcons( label:String,hint :String, imageVector: ImageVector =Icons.Default.DateRange) {
+fun TextFieldWithIcons( label:String,hint :String, imageVector: ImageVector =Icons.Default.DateRange,modifier: Modifier=Modifier) {
 
     var text by remember { mutableStateOf(TextFieldValue("")) }
     return OutlinedTextField(
         value = text
         ,
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = modifier
+            , singleLine = true,
         leadingIcon = { Icon(imageVector = imageVector, contentDescription = "icon") },
         onValueChange = {
             text = it
         },
         label = { Text(text = label) },
         placeholder = { Text(text = hint) },
+
     )
 }
