@@ -11,4 +11,5 @@ interface WeeklyScheduleRepository {
     suspend fun deleteADay(id: Int)
     suspend fun update(weeklySchedule: WeeklySchedule)
     suspend fun getDayById(id: Int)
+    fun getAllCourse():Flow<List<Courses>>
 }

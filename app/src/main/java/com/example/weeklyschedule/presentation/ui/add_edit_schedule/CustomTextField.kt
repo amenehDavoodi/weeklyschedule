@@ -14,6 +14,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 fun TextFieldWithIcons( label:String,hint :String, imageVector: ImageVector =Icons.Default.DateRange,modifier: Modifier=Modifier) {
 
     var text by remember { mutableStateOf(TextFieldValue("")) }
+    val maxChar=1
     return OutlinedTextField(
         value = text
         ,
@@ -21,10 +22,11 @@ fun TextFieldWithIcons( label:String,hint :String, imageVector: ImageVector =Ico
             , singleLine = true,
         leadingIcon = { Icon(imageVector = imageVector, contentDescription = "icon") },
         onValueChange = {
-            text = it
+
+            if (it.text.isNotEmpty() && it.text.length<= maxChar) text = it
         },
         label = { Text(text = label) },
-        placeholder = { Text(text = hint) },
+        placeholder = { Text(text = hint) }
 
     )
 }

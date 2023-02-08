@@ -84,8 +84,13 @@ fun AddEditScheduleScreen(
                             .weight(1F),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
+                       lateinit var courses:ArrayList<String>
+                       viewModel.courseList.onEach {
+                           courses.add(it.courses.toString())
 
-                        DropDownSelection(listContents = viewModel.dayList.value, label = "")
+                       }
+
+                        DropDownSelection(listContents = courses, label = "")
                     }
                 }
 
