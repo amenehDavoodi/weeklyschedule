@@ -13,13 +13,13 @@ import kotlinx.coroutines.flow.Flow
 interface WeeklyScheduleDao {
 
     @Query("SELECT * FROM WeeklySchedule")
-   fun getAllWeeklySchedule(): Flow<List<WeeklySchedule>>
+    fun getAllWeeklySchedule(): Flow<List<WeeklySchedule>>
 
     @Query("SELECT * FROM WeeklySchedule WHERE dayId = :id")
     fun observeADayById(id: Int): Flow<WeeklySchedule>
 
     @Query("SELECT * FROM Courses")
-    fun observeAllCourse():Flow<List<Courses>>
+    fun observeAllCourse(): Flow<List<Courses>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(weeklySchedule: WeeklySchedule)

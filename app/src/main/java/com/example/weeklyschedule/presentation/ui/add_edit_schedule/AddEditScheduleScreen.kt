@@ -51,8 +51,7 @@ fun AddEditScheduleScreen(
                         Text(
                             text = stringResource(R.string.title_count_of_breaks_a_day)
                         )
-
-                        TextFieldWithIcons("", "", Icons.Default.DateRange,Modifier.fillMaxSize())
+                        TextFieldWithIcons("", "", Icons.Default.DateRange,Modifier.fillMaxSize(), errorMsg = "لطفا عدد وارد کنید!")
                     }
 
 
@@ -76,7 +75,7 @@ fun AddEditScheduleScreen(
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
 
-                        DropDownSelection(listContents = viewModel.dayList.value, label = "")
+                        DropDownSelection(listContents = viewModel.courseList, label = "")
                     }
                     Column(
                         modifier = Modifier
@@ -84,13 +83,9 @@ fun AddEditScheduleScreen(
                             .weight(1F),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
-                       lateinit var courses:ArrayList<String>
-                       viewModel.courseList.onEach {
-                           courses.add(it.courses.toString())
 
-                       }
 
-                        DropDownSelection(listContents = courses, label = "")
+                        DropDownSelection(listContents = arrayListOf("ff","s"), label = "")
                     }
                 }
 
