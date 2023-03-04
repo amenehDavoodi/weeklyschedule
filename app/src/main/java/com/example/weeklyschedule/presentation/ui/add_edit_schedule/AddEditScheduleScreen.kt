@@ -23,8 +23,7 @@ import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.Dr
 
 @Composable
 fun AddEditScheduleScreen(
-    navController: NavController,
-    viewModel: AddEditViewModel = hiltViewModel()
+    navController: NavController, viewModel: AddEditViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
     Scaffold(
@@ -51,7 +50,13 @@ fun AddEditScheduleScreen(
                         Text(
                             text = stringResource(R.string.title_count_of_breaks_a_day)
                         )
-                        TextFieldWithIcons("", "", Icons.Default.DateRange,Modifier.fillMaxSize(), errorMsg = "لطفا عدد وارد کنید!")
+                        TextFieldWithIcons(
+                            "",
+                            "",
+                            Icons.Default.DateRange,
+                            Modifier.fillMaxSize(),
+                            errorMsg = "لطفا عدد وارد کنید!"
+                        )
                     }
 
 
@@ -85,7 +90,7 @@ fun AddEditScheduleScreen(
                     ) {
 
 
-                        DropDownSelection(listContents = arrayListOf("ff","s"), label = "")
+                        DropDownSelection(listContents = viewModel.courseList, label = "")
                     }
                 }
 
@@ -93,10 +98,9 @@ fun AddEditScheduleScreen(
                     Button(modifier = Modifier
                         .fillMaxWidth()
 
-                        .padding(16.dp), onClick = {
-                        for (i in 1 until (CourseList.size)) {
-                            viewModel.addNewCourse(i, CourseList[i])
-                        }
+                        .padding(16.dp),
+                        onClick = {
+
                     }) {
                         Text(stringResource(R.string.btn_add))
                     }

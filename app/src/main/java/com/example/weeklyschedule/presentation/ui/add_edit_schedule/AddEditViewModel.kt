@@ -1,17 +1,19 @@
 package com.example.weeklyschedule.presentation.ui.add_edit_schedule
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weeklyschedule.data.local.CourseList
 import com.example.weeklyschedule.data.local.DaysList
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.domain.WeeklyScheduleRepository
 import com.example.weeklyschedule.presentation.ui.general.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -48,19 +50,23 @@ class AddEditViewModel @Inject constructor(
             }
         }
 
-    suspend operator fun invoke(): Flow<List<Courses>> {
+    operator fun invoke(): Flow<List<Courses>> {
         return repository.getAllCourse()
     }
 
     private fun getAllCourse() {
 
+
         viewModelScope.launch {
              repository.getAllCourse().collect()
             {
+
+                val test=it[0].courseName
                 if (it.isNotEmpty())
                 {
-                    for (i in 0..it.size){
-                        it[i].courseName
+                    for (i in 0 until (it.size)){
+                        _cList.add(it[i].courseName)
+
                     }
 
                 }
@@ -68,6 +74,13 @@ class AddEditViewModel @Inject constructor(
             }
         }
 
+    }
+
+    private fun addCourses()
+    {
+        for (i in 1 until (CourseList.size)) {
+addNewCourse(i, CourseList[i])
+        }
     }
 
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DropDownSelection(listContents: List<String>, label: String) {
 
-    val text = remember { mutableStateOf(listContents[0]) } // initial value
+    val text = remember { mutableStateOf(if (listContents.isNotEmpty())listContents[0] else "") } // initial value
     val isOpen = remember { mutableStateOf(false) } // initial value
     val openCloseOfDropDownList: (Boolean) -> Unit = {
         isOpen.value = it
