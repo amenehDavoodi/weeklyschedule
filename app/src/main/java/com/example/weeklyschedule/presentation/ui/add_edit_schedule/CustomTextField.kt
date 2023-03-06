@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun TextFieldWithIcons(
@@ -23,7 +24,8 @@ fun TextFieldWithIcons(
     hint: String,
     imageVector: ImageVector = Icons.Default.DateRange,
     modifier: Modifier = Modifier,
-    errorMsg: String = ""
+    errorMsg: String = "",
+    viewModel: AddEditViewModel = hiltViewModel()
 ) {
 
     var text by remember { mutableStateOf(TextFieldValue("")) }
@@ -38,13 +40,15 @@ fun TextFieldWithIcons(
     Column {
         OutlinedTextField(
             modifier = modifier,
-            value = text,
+            value = viewModel.breaksOfADay,
             onValueChange = {
+                viewModel.updateDropDownBreaks(it)
+//                if (it.text.isNotEmpty()  && it.text.toInt()<9 ) {
+//                    text = it
+//                    isError = false
+//                    viewModel.breaksOfADay.value= it.text.toInt()
+//                }
 
-                if (it.text.length  <= maxChar) {
-                    text = it
-                    isError = false
-                }
             },
             leadingIcon = { Icon(imageVector = imageVector, contentDescription = "icon") },
             trailingIcon = {

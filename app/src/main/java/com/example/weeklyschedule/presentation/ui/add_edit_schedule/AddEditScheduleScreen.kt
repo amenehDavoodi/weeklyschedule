@@ -55,7 +55,7 @@ fun AddEditScheduleScreen(
                             "",
                             Icons.Default.DateRange,
                             Modifier.fillMaxSize(),
-                            errorMsg = "لطفا عدد وارد کنید!"
+                            errorMsg ="لطفا عدد وارد کنید!"
                         )
                     }
 
@@ -80,7 +80,7 @@ fun AddEditScheduleScreen(
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
 
-                        DropDownSelection(listContents = viewModel.courseList, label = "")
+                        DropDownSelection(listContents = viewModel.breakList, label = "")
                     }
                     Column(
                         modifier = Modifier

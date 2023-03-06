@@ -1,7 +1,6 @@
 package com.example.weeklyschedule.presentation.ui.add_edit_schedule
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,13 +10,13 @@ import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.domain.WeeklyScheduleRepository
 import com.example.weeklyschedule.presentation.ui.general.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
+@OptIn(ExperimentalCoroutinesApi::class)
 class AddEditViewModel @Inject constructor(
     private val repository: WeeklyScheduleRepository,
     savedStateHandle: SavedStateHandle
@@ -32,8 +31,39 @@ class AddEditViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
+
+    var breaksOfADay by mutableStateOf("")
+        private set
+
+    private var _breakList = mutableListOf<String>()
+    var breakList: List<String> = _breakList
+
     init {
         getAllCourse()
+    }
+
+
+    val breaksOfADayHasError: StateFlow<Boolean> =
+        snapshotFlow { breaksOfADay }
+            .mapLatest { it.length<=1 }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = false
+            )
+    fun updateDropDownBreaks(input: String) {
+        viewModelScope.launch {
+
+            breaksOfADay = input
+            addBreaksToList()
+        }
+    }
+    private fun addBreaksToList()
+    {
+        for (i in 1..breaksOfADay.toInt())
+        {
+            _breakList.add("زنگ  $i")
+        }
     }
 
     fun addNewCourse(id: Int, courseName: String) =
@@ -60,8 +90,6 @@ class AddEditViewModel @Inject constructor(
         viewModelScope.launch {
              repository.getAllCourse().collect()
             {
-
-                val test=it[0].courseName
                 if (it.isNotEmpty())
                 {
                     for (i in 0 until (it.size)){
@@ -79,7 +107,7 @@ class AddEditViewModel @Inject constructor(
     private fun addCourses()
     {
         for (i in 1 until (CourseList.size)) {
-addNewCourse(i, CourseList[i])
+            addNewCourse(i, CourseList[i])
         }
     }
 
