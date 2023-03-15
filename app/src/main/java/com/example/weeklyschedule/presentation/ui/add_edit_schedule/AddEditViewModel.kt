@@ -1,12 +1,11 @@
 package com.example.weeklyschedule.presentation.ui.add_edit_schedule
 
 import androidx.compose.runtime.*
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.weeklyschedule.data.local.CourseList
 import com.example.weeklyschedule.data.local.DaysList
 import com.example.weeklyschedule.data.local.entities.Courses
+import com.example.weeklyschedule.data.local.entities.WeeklySchedule
 import com.example.weeklyschedule.domain.WeeklyScheduleRepository
 import com.example.weeklyschedule.presentation.ui.general.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +19,9 @@ import javax.inject.Inject
 class AddEditViewModel @Inject constructor(
     private val repository: WeeklyScheduleRepository,
     savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : ViewModel(){
+
+
     private val _dayList = mutableStateOf(DaysList)
     val dayList: State<List<String>> = _dayList
 
@@ -39,7 +40,7 @@ class AddEditViewModel @Inject constructor(
     var breakList: List<String> = _breakList
 
     init {
-        getAllCourse()
+        addCourses()
     }
 
 
@@ -66,7 +67,7 @@ class AddEditViewModel @Inject constructor(
         }
     }
 
-    fun addNewCourse(id: Int, courseName: String) =
+    private fun addNewCourse(id: Int, courseName: String) =
         viewModelScope.launch {
             try {
                 repository.insertCourse(Courses(id, courseName))
@@ -109,6 +110,24 @@ class AddEditViewModel @Inject constructor(
         for (i in 1 until (CourseList.size)) {
             addNewCourse(i, CourseList[i])
         }
+    }
+
+    fun addNewScheduleForADay(weeklySchedule: WeeklySchedule)
+    {
+        viewModelScope.launch {
+            try {
+                repository.insert(weeklySchedule)
+                _eventFlow.emit(UiEvent.SaveWeeklySchedule)
+            } catch (e: Exception) {
+                _eventFlow.emit(
+                    UiEvent.ShowSnackBar(
+                        message = e.message ?: "Couldn't save schedule!"
+                    )
+                )
+            }
+        }
+
+
     }
 
 }

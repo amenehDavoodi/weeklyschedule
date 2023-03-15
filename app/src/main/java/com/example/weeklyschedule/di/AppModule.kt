@@ -2,7 +2,8 @@ package com.example.weeklyschedule.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.weeklyschedule.data.local.daos.WeeklyScheduleDao
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.weeklyschedule.data.local.database.WeeklyScheduleRoomDataBase
 import com.example.weeklyschedule.data.local.database.WeeklyScheduleRoomDataBase.Companion.DATABASE_NAME
 import com.example.weeklyschedule.data.repository.WeeklyScheduleRepositoryImp
@@ -11,7 +12,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 
@@ -27,7 +27,8 @@ object AppModule {
             appContext,
             WeeklyScheduleRoomDataBase::class.java,
             DATABASE_NAME
-        ).build()
+        ).addMigrations(MIGRATION_1)
+            .build()
     }
 
     @Provides
@@ -35,6 +36,12 @@ object AppModule {
     fun weeklyScheduleRepository(db:WeeklyScheduleRoomDataBase
     ): WeeklyScheduleRepository {
         return WeeklyScheduleRepositoryImp(db.weeklyScheduleDao)
+    }
+
+    val MIGRATION_1 = object : Migration(1, 1) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("DROP TABLE IF EXISTS `WeeklySchedule`")
+        }
     }
 
 }

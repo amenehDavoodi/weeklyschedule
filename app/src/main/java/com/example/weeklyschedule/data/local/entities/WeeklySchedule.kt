@@ -8,5 +8,6 @@ data class WeeklySchedule(
     @PrimaryKey(autoGenerate = true)
     val id:Int,
     val dayId:Int,
-    val courseId:Int
+    val courseId:Int,
+    val breakId:Int
 )
