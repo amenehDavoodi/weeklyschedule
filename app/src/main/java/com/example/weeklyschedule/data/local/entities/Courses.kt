@@ -8,4 +8,6 @@ data class Courses(
     @PrimaryKey
     val courseId: Int,
     val courseName: String
-)
+){
+    fun toCourses()=Courses(courseId,courseName)
+}

@@ -26,8 +26,8 @@ class AddEditViewModel @Inject constructor(
     val dayList: State<List<String>> = _dayList
 
 
-    private var _cList = mutableListOf<String>()
-    var courseList: List<String> = _cList
+    private var _cList = mutableListOf<Courses>()
+    var courseList: List<Courses> = _cList
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -39,9 +39,9 @@ class AddEditViewModel @Inject constructor(
     private var _breakList = mutableListOf<String>()
     var breakList: List<String> = _breakList
 
-    init {
-        addCourses()
-    }
+//    init {
+//        getAllCourse()
+//    }
 
 
     val breaksOfADayHasError: StateFlow<Boolean> =
@@ -85,27 +85,19 @@ class AddEditViewModel @Inject constructor(
         return repository.getAllCourse()
     }
 
-    private fun getAllCourse() {
-
-
+    fun getAllCourse() {
         viewModelScope.launch {
-             repository.getAllCourse().collect()
-            {
-                if (it.isNotEmpty())
-                {
-                    for (i in 0 until (it.size)){
-                        _cList.add(it[i].courseName)
+             repository.getAllCourse().collect(){
+                 if (it.isNotEmpty())
+                     _cList.addAll(it)
 
-                    }
+             }
 
-                }
-
-            }
         }
 
     }
 
-    private fun addCourses()
+    fun addCourses()
     {
         for (i in 1 until (CourseList.size)) {
             addNewCourse(i, CourseList[i])
@@ -128,6 +120,15 @@ class AddEditViewModel @Inject constructor(
         }
 
 
+    }
+    fun getListNames(list: List<Any>) :List<String>{
+//        val listCourses = list.filterIsInstance<Courses>()
+
+        val items= arrayListOf<String>()
+        for (item in _cList ) {
+            items.addAll(listOf(item.courseName))
+        }
+        return items
     }
 
 }

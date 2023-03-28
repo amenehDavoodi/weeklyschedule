@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
 import com.example.weeklyschedule.data.local.CourseList
@@ -65,7 +66,7 @@ fun AddEditScheduleScreen(
                             "",
                             Icons.Default.DateRange,
                             Modifier.fillMaxSize(),
-                            errorMsg ="لطفا عدد وارد کنید!"
+                            errorMsg = "لطفا عدد وارد کنید!"
                         )
                     }
 
@@ -100,7 +101,7 @@ fun AddEditScheduleScreen(
                     ) {
 
 
-                        DropDownSelection(listContents = viewModel.courseList, label = "",)
+                        DropDownSelection(listContents = viewModel.getListNames(viewModel.courseList), label = "")
                     }
                 }
 
@@ -110,9 +111,9 @@ fun AddEditScheduleScreen(
 
                         .padding(16.dp),
                         onClick = {
-                            viewModel.addNewScheduleForADay(WeeklySchedule(1,1,1,1))
+                            viewModel.addNewScheduleForADay(WeeklySchedule(1, 1, 1, 1))
 
-                    }) {
+                        }) {
                         Text(stringResource(R.string.btn_add))
                     }
                 }
@@ -135,8 +136,7 @@ fun AddEditScheduleScreen(
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
-                        }
-                        ,
+                        },
                         onStart = {
                             Toast.makeText(
                                 context,
@@ -144,7 +144,7 @@ fun AddEditScheduleScreen(
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
-                        }
+                        }, viewModel
 
                     )
                 }
@@ -158,7 +158,8 @@ fun AddEditScheduleScreen(
 private fun DisposableEffectWithLifeCycle(
     onResume: () -> Unit,
     onPause: () -> Unit,
-    onStart:()-> Unit
+    onStart: () -> Unit,
+    viewModel: AddEditViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
@@ -183,13 +184,12 @@ private fun DisposableEffectWithLifeCycle(
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_CREATE -> {
-                    Toast.makeText(
-                        context,
-                        "DisposableEffectWithLifeCycle ON_CREATE",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    viewModel.addCourses()
+                        viewModel.getAllCourse()
+
                 }
                 Lifecycle.Event.ON_START -> {
+                    currentOnStart()
                     Toast.makeText(
                         context,
                         "DisposableEffectWithLifeCycle ON_START",
