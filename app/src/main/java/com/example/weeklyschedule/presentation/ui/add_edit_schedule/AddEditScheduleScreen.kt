@@ -24,10 +24,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
-import com.example.weeklyschedule.data.local.CourseList
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
 import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.DropDownSelection
 
@@ -101,7 +99,10 @@ fun AddEditScheduleScreen(
                     ) {
 
 
-                        DropDownSelection(listContents = viewModel.getListNames(viewModel.courseList), label = "")
+                        DropDownSelection(
+                            listContents = viewModel.getListNames(viewModel.coursesList),
+                            label = ""
+                        )
                     }
                 }
 
@@ -184,8 +185,9 @@ private fun DisposableEffectWithLifeCycle(
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_CREATE -> {
-                    viewModel.addCourses()
-                        viewModel.getAllCourse()
+                    if (viewModel.coursesList.isEmpty())
+                        viewModel.addCourses()
+                    viewModel.getAllCourse()
 
                 }
                 Lifecycle.Event.ON_START -> {

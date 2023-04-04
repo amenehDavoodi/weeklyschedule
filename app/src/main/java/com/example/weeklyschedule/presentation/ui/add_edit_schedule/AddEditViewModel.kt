@@ -19,7 +19,7 @@ import javax.inject.Inject
 class AddEditViewModel @Inject constructor(
     private val repository: WeeklyScheduleRepository,
     savedStateHandle: SavedStateHandle
-) : ViewModel(){
+) : ViewModel() {
 
 
     private val _dayList = mutableStateOf(DaysList)
@@ -27,7 +27,7 @@ class AddEditViewModel @Inject constructor(
 
 
     private var _cList = mutableListOf<Courses>()
-    var courseList: List<Courses> = _cList
+    var coursesList: List<Courses> = _cList
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -39,19 +39,20 @@ class AddEditViewModel @Inject constructor(
     private var _breakList = mutableListOf<String>()
     var breakList: List<String> = _breakList
 
-//    init {
-//        getAllCourse()
-//    }
+    init {
+        getAllCourse()
+    }
 
 
     val breaksOfADayHasError: StateFlow<Boolean> =
         snapshotFlow { breaksOfADay }
-            .mapLatest { it.length<=1 }
+            .mapLatest { it.length <= 1 }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = false
             )
+
     fun updateDropDownBreaks(input: String) {
         viewModelScope.launch {
 
@@ -59,10 +60,9 @@ class AddEditViewModel @Inject constructor(
             addBreaksToList()
         }
     }
-    private fun addBreaksToList()
-    {
-        for (i in 1..breaksOfADay.toInt())
-        {
+
+    private fun addBreaksToList() {
+        for (i in 1..breaksOfADay.toInt()) {
             _breakList.add("زنگ  $i")
         }
     }
@@ -87,25 +87,23 @@ class AddEditViewModel @Inject constructor(
 
     fun getAllCourse() {
         viewModelScope.launch {
-             repository.getAllCourse().collect(){
-                 if (it.isNotEmpty())
-                     _cList.addAll(it)
+            repository.getAllCourse().collect() {
+                if (it.isNotEmpty())
+                    _cList.addAll(it)
 
-             }
+            }
 
         }
 
     }
 
-    fun addCourses()
-    {
+    fun addCourses() {
         for (i in 1 until (CourseList.size)) {
             addNewCourse(i, CourseList[i])
         }
     }
 
-    fun addNewScheduleForADay(weeklySchedule: WeeklySchedule)
-    {
+    fun addNewScheduleForADay(weeklySchedule: WeeklySchedule) {
         viewModelScope.launch {
             try {
                 repository.insert(weeklySchedule)
@@ -121,12 +119,13 @@ class AddEditViewModel @Inject constructor(
 
 
     }
-    fun getListNames(list: List<Any>) :List<String>{
-//        val listCourses = list.filterIsInstance<Courses>()
 
-        val items= arrayListOf<String>()
-        for (item in _cList ) {
-            items.addAll(listOf(item.courseName))
+    fun getListNames(list: List<Any>): List<String> {
+        val listCourses = list.filterIsInstance<Courses>()
+
+        val items = arrayListOf<String>()
+        for (item in listCourses) {
+            items.add(item.courseName)
         }
         return items
     }
