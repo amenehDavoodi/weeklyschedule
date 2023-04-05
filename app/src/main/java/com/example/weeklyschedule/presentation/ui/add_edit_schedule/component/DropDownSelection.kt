@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DropDownSelection(listContents: List<String>, label: String) {
+fun DropDownSelection(listContents: List<String>, label: String,selectedString: (String) -> Unit) {
 
     val text = remember { mutableStateOf(if (listContents.isNotEmpty())listContents[0] else "") } // initial value
     val isOpen = remember { mutableStateOf(false) } // initial value
@@ -71,7 +71,7 @@ fun DropDownList(
     requestToOpen: Boolean = false,
     list: List<String>,
     request: (Boolean) -> Unit,
-    selectedString: (String) -> Unit
+    selectedString: (String) -> Unit,
 ) {
     DropdownMenu(
         modifier = Modifier

@@ -10,10 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -34,6 +31,11 @@ import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.Dr
 fun AddEditScheduleScreen(
     navController: NavController, viewModel: AddEditViewModel = hiltViewModel()
 ) {
+    val text = remember { mutableStateOf("") } // initial value
+    val userSelectedString: (String) -> Unit = {
+        text.value = it
+    }
+
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         scaffoldState = scaffoldState
@@ -78,7 +80,7 @@ fun AddEditScheduleScreen(
                 ) {
 
                     Text(stringResource(R.string.add_days_week_label))
-                    DropDownSelection(listContents = viewModel.dayList.value, label = "")
+                    DropDownSelection(listContents = viewModel.dayList.value, label = "",userSelectedString)
                 }
                 Row {
 
@@ -89,7 +91,7 @@ fun AddEditScheduleScreen(
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
 
-                        DropDownSelection(listContents = viewModel.breakList, label = "")
+                        DropDownSelection(listContents = viewModel.breakList, label = "",userSelectedString)
                     }
                     Column(
                         modifier = Modifier
@@ -101,7 +103,7 @@ fun AddEditScheduleScreen(
 
                         DropDownSelection(
                             listContents = viewModel.getListNames(viewModel.coursesList),
-                            label = ""
+                            label = "",userSelectedString
                         )
                     }
                 }
@@ -112,7 +114,10 @@ fun AddEditScheduleScreen(
 
                         .padding(16.dp),
                         onClick = {
-                            viewModel.addNewScheduleForADay(WeeklySchedule(1, 1, 1, 1))
+                            val dayId=viewModel.getSelectedId(text.value,viewModel.dayList.value)
+                            viewModel.addNewScheduleForADay(WeeklySchedule(1,
+                                dayId,
+                                1, 1))
 
                         }) {
                         Text(stringResource(R.string.btn_add))
@@ -192,11 +197,7 @@ private fun DisposableEffectWithLifeCycle(
                 }
                 Lifecycle.Event.ON_START -> {
                     currentOnStart()
-                    Toast.makeText(
-                        context,
-                        "DisposableEffectWithLifeCycle ON_START",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
                 }
                 Lifecycle.Event.ON_RESUME -> {
                     currentOnResume()
@@ -205,18 +206,10 @@ private fun DisposableEffectWithLifeCycle(
                     currentOnPause()
                 }
                 Lifecycle.Event.ON_STOP -> {
-                    Toast.makeText(
-                        context,
-                        "DisposableEffectWithLifeCycle ON_STOP",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
                 }
                 Lifecycle.Event.ON_DESTROY -> {
-                    Toast.makeText(
-                        context,
-                        "DisposableEffectWithLifeCycle ON_DESTROY",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
                 }
                 else -> {}
             }
@@ -238,13 +231,13 @@ private fun DisposableEffectWithLifeCycle(
         }
     }
 
-    Column(modifier = Modifier.background(Color(0xff03A9F4))) {
-        Text(
-            text = "Disposable Effect with lifecycle",
-            color = Color.White,
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
-        )
-    }
+//    Column(modifier = Modifier.background(Color(0xff03A9F4))) {
+//        Text(
+//            text = "Disposable Effect with lifecycle",
+//            color = Color.White,
+//            modifier = Modifier
+//                .padding(8.dp)
+//                .fillMaxWidth()
+//        )
+//    }
 }

@@ -129,5 +129,15 @@ class AddEditViewModel @Inject constructor(
         }
         return items
     }
+    fun getSelectedId(name:String,list:List<Any>):Int
+    {
+        for (i in 0..list.size)
+        {
+            if (list.contains(name))
+                return list.indexOf(name)
+        }
+        return 0
+
+    }
 
 }
