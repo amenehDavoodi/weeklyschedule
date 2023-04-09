@@ -81,9 +81,9 @@ class AddEditViewModel @Inject constructor(
             }
         }
 
-    operator fun invoke(): Flow<List<Courses>> {
-        return repository.getAllCourse()
-    }
+//    operator fun invoke(): Flow<List<Courses>> {
+//        return repository.getAllCourse()
+//    }
 
     fun getAllCourse() {
         viewModelScope.launch {

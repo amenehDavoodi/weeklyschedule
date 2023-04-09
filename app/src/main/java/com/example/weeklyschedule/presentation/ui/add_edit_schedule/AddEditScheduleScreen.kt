@@ -23,6 +23,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
+import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
 import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.DropDownSelection
 
@@ -80,7 +81,11 @@ fun AddEditScheduleScreen(
                 ) {
 
                     Text(stringResource(R.string.add_days_week_label))
-                    DropDownSelection(listContents = viewModel.dayList.value, label = "",userSelectedString)
+                    DropDownSelection(
+                        listContents = viewModel.dayList.value,
+                        label = "",
+                        userSelectedString
+                    )
                 }
                 Row {
 
@@ -91,7 +96,11 @@ fun AddEditScheduleScreen(
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
 
-                        DropDownSelection(listContents = viewModel.breakList, label = "",userSelectedString)
+                        DropDownSelection(
+                            listContents = viewModel.breakList,
+                            label = "",
+                            userSelectedString
+                        )
                     }
                     Column(
                         modifier = Modifier
@@ -103,7 +112,7 @@ fun AddEditScheduleScreen(
 
                         DropDownSelection(
                             listContents = viewModel.getListNames(viewModel.coursesList),
-                            label = "",userSelectedString
+                            label = "", userSelectedString
                         )
                     }
                 }
@@ -111,13 +120,16 @@ fun AddEditScheduleScreen(
                 Row {
                     Button(modifier = Modifier
                         .fillMaxWidth()
-
                         .padding(16.dp),
                         onClick = {
-                            val dayId=viewModel.getSelectedId(text.value,viewModel.dayList.value)
-                            viewModel.addNewScheduleForADay(WeeklySchedule(1,
-                                dayId,
-                                1, 1))
+                            val dayId = viewModel.getSelectedId(text.value, viewModel.dayList.value)
+                            viewModel.addNewScheduleForADay(
+                                WeeklySchedule(
+                                    1,
+                                    dayId,
+                                    1, 1
+                                )
+                            )
 
                         }) {
                         Text(stringResource(R.string.btn_add))
@@ -190,12 +202,18 @@ private fun DisposableEffectWithLifeCycle(
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_CREATE -> {
-                    if (viewModel.coursesList.isEmpty())
-                        viewModel.addCourses()
-                    viewModel.getAllCourse()
+
+//                    if (viewModel.coursesList.isEmpty()) {
+//                        viewModel.addCourses()
+//                        viewModel.getAllCourse()
+//
+//                    }
+//                    viewModel.getAllCourse()
+
 
                 }
                 Lifecycle.Event.ON_START -> {
+
                     currentOnStart()
 
                 }
