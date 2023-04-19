@@ -23,7 +23,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
-import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
 import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.DropDownSelection
 
@@ -32,9 +31,17 @@ import com.example.weeklyschedule.presentation.ui.add_edit_schedule.component.Dr
 fun AddEditScheduleScreen(
     navController: NavController, viewModel: AddEditViewModel = hiltViewModel()
 ) {
-    val text = remember { mutableStateOf("") } // initial value
-    val userSelectedString: (String) -> Unit = {
-        text.value = it
+    val selectedDay = remember { mutableStateOf("") } // initial value
+    val userSelectedStringDay: (String) -> Unit = {
+        selectedDay.value = it
+    }
+    val selectedCourses = remember { mutableStateOf("") } // initial value
+    val userSelectedStringCourses: (String) -> Unit = {
+        selectedCourses.value = it
+    }
+    val selectedBreaks = remember { mutableStateOf("") } // initial value
+    val userSelectedStringBreaks: (String) -> Unit = {
+        selectedBreaks.value = it
     }
 
     val scaffoldState = rememberScaffoldState()
@@ -84,7 +91,7 @@ fun AddEditScheduleScreen(
                     DropDownSelection(
                         listContents = viewModel.dayList.value,
                         label = "",
-                        userSelectedString
+                        userSelectedStringDay
                     )
                 }
                 Row {
@@ -99,7 +106,7 @@ fun AddEditScheduleScreen(
                         DropDownSelection(
                             listContents = viewModel.breakList,
                             label = "",
-                            userSelectedString
+                            userSelectedStringBreaks
                         )
                     }
                     Column(
@@ -112,7 +119,7 @@ fun AddEditScheduleScreen(
 
                         DropDownSelection(
                             listContents = viewModel.getListNames(viewModel.coursesList),
-                            label = "", userSelectedString
+                            label = "", userSelectedStringCourses
                         )
                     }
                 }
@@ -122,12 +129,14 @@ fun AddEditScheduleScreen(
                         .fillMaxWidth()
                         .padding(16.dp),
                         onClick = {
-                            val dayId = viewModel.getSelectedId(text.value, viewModel.dayList.value)
+                            val dayId = viewModel.getSelectedId(selectedDay.value, viewModel.dayList.value)
+                            val courseId = viewModel.getSelectedId(selectedCourses.value, viewModel.coursesList)
+                            val breaksId = viewModel.getSelectedId(selectedBreaks.value, viewModel.breakList)
                             viewModel.addNewScheduleForADay(
                                 WeeklySchedule(
-                                    1,
-                                    dayId,
-                                    1, 1
+                                    dayId = dayId,
+                                    courseId = courseId,
+                                    breakId = breaksId
                                 )
                             )
 
@@ -204,8 +213,8 @@ private fun DisposableEffectWithLifeCycle(
                 Lifecycle.Event.ON_CREATE -> {
 
 //                    if (viewModel.coursesList.isEmpty()) {
-//                        viewModel.addCourses()
-//                        viewModel.getAllCourse()
+                        viewModel.addCourses()
+                        viewModel.getAllCourse()
 //
 //                    }
 //                    viewModel.getAllCourse()
@@ -223,12 +232,7 @@ private fun DisposableEffectWithLifeCycle(
                 Lifecycle.Event.ON_PAUSE -> {
                     currentOnPause()
                 }
-                Lifecycle.Event.ON_STOP -> {
 
-                }
-                Lifecycle.Event.ON_DESTROY -> {
-
-                }
                 else -> {}
             }
         }
@@ -249,13 +253,4 @@ private fun DisposableEffectWithLifeCycle(
         }
     }
 
-//    Column(modifier = Modifier.background(Color(0xff03A9F4))) {
-//        Text(
-//            text = "Disposable Effect with lifecycle",
-//            color = Color.White,
-//            modifier = Modifier
-//                .padding(8.dp)
-//                .fillMaxWidth()
-//        )
-//    }
 }

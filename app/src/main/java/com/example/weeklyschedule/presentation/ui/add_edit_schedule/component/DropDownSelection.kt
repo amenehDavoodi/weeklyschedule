@@ -52,7 +52,8 @@ fun DropDownSelection(listContents: List<String>, label: String,selectedString: 
                 requestToOpen = isOpen.value,
                 list = listContents,
                 openCloseOfDropDownList,
-                userSelectedString
+                userSelectedString,
+                selectedString
             )
         }
         Spacer(
@@ -72,6 +73,7 @@ fun DropDownList(
     list: List<String>,
     request: (Boolean) -> Unit,
     selectedString: (String) -> Unit,
+    userSelectedString: (String) -> Unit
 ) {
     DropdownMenu(
         modifier = Modifier
@@ -89,6 +91,7 @@ fun DropDownList(
                 onClick = {
                     request(false)
                     selectedString(it)
+                    userSelectedString(it)
                 }
             ) {
                 Text(it, modifier = Modifier.fillMaxWidth())
