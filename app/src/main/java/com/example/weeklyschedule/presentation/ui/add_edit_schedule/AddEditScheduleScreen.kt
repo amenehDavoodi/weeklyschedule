@@ -130,7 +130,7 @@ fun AddEditScheduleScreen(
                         .padding(16.dp),
                         onClick = {
                             val dayId = viewModel.getSelectedId(selectedDay.value, viewModel.dayList.value)
-                            val courseId = viewModel.getSelectedId(selectedCourses.value, viewModel.coursesList)
+                            val courseId = viewModel.getSelectedCourseId(selectedCourses.value, viewModel.coursesList)
                             val breaksId = viewModel.getSelectedId(selectedBreaks.value, viewModel.breakList)
                             viewModel.addNewScheduleForADay(
                                 WeeklySchedule(
