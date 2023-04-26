@@ -6,7 +6,9 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.weeklyschedule.data.local.database.WeeklyScheduleRoomDataBase
 import com.example.weeklyschedule.data.local.database.WeeklyScheduleRoomDataBase.Companion.DATABASE_NAME
+import com.example.weeklyschedule.data.repository.HomeRepositoryImp
 import com.example.weeklyschedule.data.repository.WeeklyScheduleRepositoryImp
+import com.example.weeklyschedule.domain.HomeScheduleRepository
 import com.example.weeklyschedule.domain.WeeklyScheduleRepository
 import dagger.Module
 import dagger.Provides
@@ -36,6 +38,12 @@ object AppModule {
     fun weeklyScheduleRepository(db:WeeklyScheduleRoomDataBase
     ): WeeklyScheduleRepository {
         return WeeklyScheduleRepositoryImp(db.weeklyScheduleDao)
+    }
+    @Provides
+    @Singleton
+    fun homeScheduleRepository(db:WeeklyScheduleRoomDataBase
+    ): HomeScheduleRepository {
+        return HomeRepositoryImp(db.weeklyScheduleDao)
     }
 
     val MIGRATION_1 = object : Migration(1, 1) {

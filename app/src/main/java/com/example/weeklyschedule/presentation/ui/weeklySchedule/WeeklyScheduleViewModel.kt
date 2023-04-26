@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
-import com.example.weeklyschedule.data.repository.WeeklyScheduleRepositoryImp
 import com.example.weeklyschedule.domain.WeeklyScheduleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
