@@ -4,4 +4,5 @@
     <string name="title_count_of_breaks_a_day">تعداد زنگ ها در یک روز</string>
     <string name="label_breaks">تعداد زنگ ها</string>
     <string name="btn_add">افزودن</string>
+    <string name="top_appBar_title">امروز</string>
 </resources>
