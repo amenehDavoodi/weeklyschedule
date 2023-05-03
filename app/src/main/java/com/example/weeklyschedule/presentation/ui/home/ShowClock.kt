@@ -31,7 +31,7 @@ fun DisplayTxtClock() {
     ) {
 
         Text(
-            text = "Text Clock in Android",
+            text = " امروز چهارشنبه ",
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             color = Color.Black,

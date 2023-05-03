@@ -16,8 +16,8 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     fun showTime(): String {
         val sdf = SimpleDateFormat("'Date\n'dd-MM-yyyy '\n\nand\n\nTime\n'HH:mm:ss")
-        val currentDateAndTime = sdf.format(Date())
-        val cal=PersianDate(2023,5,24).year.toString()+"/"
-        return cal
+        val currentDateAndTime = sdf.format(PersianDate(21321))
+        val cal=PersianDate(1390,5,24).toString()
+        return currentDateAndTime
     }
 }

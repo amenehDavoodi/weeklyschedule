@@ -17,7 +17,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
@@ -40,25 +42,36 @@ fun HomeScreen(
         ) {
             item {
                 TopAppBarScreen()
-                Row(
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Card(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .testTag("circle"),
-                        shape = CircleShape,
-                        elevation = 2.dp
+                Column {
+
+                    Row(
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Image(
-                            painterResource(R.drawable.clock),
-                            contentDescription = "",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
+                        Card(
+                            modifier = Modifier
+                                .size(48.dp),
+                            shape = CircleShape,
+                            elevation = 2.dp
+                        ) {
+                            Image(
+                                painterResource(R.drawable.clock),
+                                contentDescription = "",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+
+                        DisplayTxtClock()
+
+                    Row {
+                        Text(
+                            text = "سسشبشسیب", modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            color = Color.Black,
+                            fontSize = 15.sp
                         )
                     }
-                    DisplayTxtClock()
-
+                    }
                 }
             }
         }
