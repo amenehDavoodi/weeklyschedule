@@ -119,7 +119,6 @@ dependencies {
 //    implementation 'dev.emad:persiandatepicker:1.0.11'
 //    implementation 'com.shawnlin:number-picker:2.4.11'
 
-    implementation("com.github.persian-calendar:calendar:1.2.2")
 //    implementation ("com.github.SirLordPouya:PersianLinearDatePicker:1.5.0")
 
 

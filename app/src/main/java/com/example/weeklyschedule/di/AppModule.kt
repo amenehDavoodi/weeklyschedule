@@ -29,7 +29,7 @@ object AppModule {
             appContext,
             WeeklyScheduleRoomDataBase::class.java,
             DATABASE_NAME
-        ).addMigrations(MIGRATION_1)
+        ).addMigrations(MIGRATION_2)
             .build()
     }
 
@@ -46,9 +46,14 @@ object AppModule {
         return HomeRepositoryImp(db.weeklyScheduleDao)
     }
 
-    val MIGRATION_1 = object : Migration(1, 1) {
+    private val MIGRATION_1 = object : Migration(1, 1) {
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL("DROP TABLE IF EXISTS `WeeklySchedule`")
+        }
+    }
+    private val MIGRATION_2 = object : Migration(1, 2) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE weeklyschedule ADD COLUMN breakId INTEGER ")
         }
     }
 

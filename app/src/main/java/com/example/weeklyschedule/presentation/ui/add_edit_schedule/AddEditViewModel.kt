@@ -88,7 +88,7 @@ class AddEditViewModel @Inject constructor(
     fun getAllCourse() {
         viewModelScope.launch {
             repository.getAllCourse().collect() {
-                if (it.isNotEmpty())
+                if (_cList.isEmpty())
                     _cList.addAll(it)
 
             }

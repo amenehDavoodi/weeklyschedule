@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
-fun DisplayTxtClock() {
+fun DisplayTxtClock(today:String) {
 
     Column(
 
@@ -31,11 +31,11 @@ fun DisplayTxtClock() {
     ) {
 
         Text(
-            text = " امروز چهارشنبه ",
+            text = today,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             color = Color.Black,
-            fontSize = 25.sp,
+            fontSize = 20.sp,
         )
         Spacer(modifier = Modifier.height(20.dp))
         AndroidView(
