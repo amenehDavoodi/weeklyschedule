@@ -17,7 +17,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,21 +29,19 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
-import com.example.weeklyschedule.data.local.entities.Courses
-import com.example.weeklyschedule.data.repository.WeeklyScheduleRepositoryImp
-import com.example.weeklyschedule.domain.WeeklyScheduleRepository
-import com.example.weeklyschedule.presentation.ui.add_edit_schedule.AddEditViewModel
+import com.example.weeklyschedule.presentation.ui.ShareViewModel
 import com.example.weeklyschedule.presentation.ui.dateUtils.Utilities
 
 
 @Composable
 fun HomeScreen(
-    navController: NavController, viewModel: HomeViewModel = hiltViewModel()
+    navController: NavController, viewModel: HomeViewModel = hiltViewModel(),
+    shareViewModel:ShareViewModel= hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
     val imageVector: Drawable
 
-
+    shareViewModel.addCourses()
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = { TopAppBarScreen() }
@@ -91,7 +88,7 @@ fun HomeScreen(
 
                     }
                     Row {
-                        customListView(context = LocalContext.current,viewModel.coursesList)
+                        CustomListView(context = LocalContext.current,viewModel.coursesList)
                     }
                 }
             }

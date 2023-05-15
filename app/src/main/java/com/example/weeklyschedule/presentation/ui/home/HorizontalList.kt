@@ -2,6 +2,7 @@ package com.example.weeklyschedule.presentation.ui.home
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,64 +18,93 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.weeklyschedule.R
 import com.example.weeklyschedule.data.local.entities.Courses
+import com.example.weeklyschedule.di.util.Resource
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun customListView(context: Context,courseList2: List<Courses>) {
+fun CustomListView(context: Context, courseList2: List<Courses>) {
 
 
-    LazyRow {
-        itemsIndexed(courseList2) { index, item ->
-            Card(
-                onClick = {
-                    Toast.makeText(
-                        context,
-                        courseList2[index].courseName + " selected..",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                },
-                modifier = Modifier
-                    .padding(8.dp)
-                    .width(120.dp),
-                elevation = 6.dp
-            )
-            {
-                Column(
+    if (courseList2.isNotEmpty()) {
+        LazyRow {
+            itemsIndexed(courseList2) { index, item ->
+                Card(
+                    onClick = {
+                        Toast.makeText(
+                            context,
+                            courseList2[index].courseName + " selected..",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
                     modifier = Modifier
                         .padding(8.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.height(5.dp))
+                        .width(120.dp),
+                    elevation = 6.dp
+                )
+                {
+                    Column(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Spacer(modifier = Modifier.height(5.dp))
 
-//                    Image(
-//                        painter = painterResource(id = courseList[index].courseId),
-//
-//                        contentDescription = "img",
-//
-//                        modifier = Modifier
-//                            .height(60.dp)
-//                            .width(60.dp)
-//                            .padding(5.dp),
-//
-//                        alignment = Alignment.Center
-//                    )
+                        Image(
+                            painter = painterResource(id = courseList2[index].courseId),
 
-                    Spacer(modifier = Modifier.height(5.dp))
+                            contentDescription = "img",
 
-                    Text(
+                            modifier = Modifier
+                                .height(60.dp)
+                                .width(60.dp)
+                                .padding(5.dp),
 
-                        text = courseList2[index].courseName,
+                            alignment = Alignment.Center
+                        )
 
-                        modifier = Modifier.padding(4.dp),
+                        Spacer(modifier = Modifier.height(5.dp))
 
-                        color = Color.Black, textAlign = TextAlign.Center
-                    )
+                        Text(
+
+                            text = courseList2[index].courseName,
+
+                            modifier = Modifier.padding(4.dp),
+
+                            color = Color.Black, textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
         }
+    } else {
+        Image(
+            painter = painterResource(R.drawable.clock),
+
+            contentDescription = "img",
+
+            modifier = Modifier
+                .height(60.dp)
+                .width(60.dp)
+                .padding(5.dp),
+
+            alignment = Alignment.Center)
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        Text(
+
+            text = "",
+
+            modifier = Modifier.padding(4.dp),
+
+            color = Color.Black, textAlign = TextAlign.Center
+        )
     }
+
 }
