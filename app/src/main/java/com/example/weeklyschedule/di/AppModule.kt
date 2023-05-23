@@ -29,7 +29,9 @@ object AppModule {
             appContext,
             WeeklyScheduleRoomDataBase::class.java,
             DATABASE_NAME
-        ).addMigrations(MIGRATION_2)
+        )
+            .addMigrations(MIGRATION_2)
+            .addMigrations(MIGRATION_1)
             .build()
     }
 
@@ -53,9 +55,15 @@ object AppModule {
     }
     private val MIGRATION_2 = object : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("ALTER TABLE weeklyschedule ADD COLUMN breakId INTEGER ")
+            database.execSQL("ALTER TABLE `WeeklySchedule` ADD COLUMN `breakId` INTEGER NOT NULL ")
         }
     }
+    private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE 'WeeklySchedule' ADD COLUMN 'breakId' INTEGER DEFAULT 0")
+        }
+    }
+
 
 }
 

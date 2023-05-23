@@ -1,7 +1,9 @@
 package com.example.weeklyschedule.data.local.entities
 
+import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
 
 @Entity
 data class WeeklySchedule(
@@ -9,7 +11,7 @@ data class WeeklySchedule(
     val id:Int=0,
     val dayId:Int,
     val courseId:Int,
-    val breakId:Int
-){
-}
+    @NonNull
+    val breakId:Int=0
+)
 

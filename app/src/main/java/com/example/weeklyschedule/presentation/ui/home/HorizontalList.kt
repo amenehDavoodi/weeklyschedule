@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -19,36 +20,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.weeklyschedule.data.local.entities.Courses
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun customListView(context: Context,courseList2: List<Courses>) {
+fun customListView(context: Context, courseList2: List<Courses>) {
 
 
-    LazyRow {
-        itemsIndexed(courseList2) { index, item ->
-            Card(
-                onClick = {
-                    Toast.makeText(
-                        context,
-                        courseList2[index].courseName + " selected..",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                },
-                modifier = Modifier
-                    .padding(8.dp)
-                    .width(120.dp),
-                elevation = 6.dp
-            )
-            {
-                Column(
+    if (courseList2.isNotEmpty()) {
+        val no=false
+        LazyRow {
+            itemsIndexed(courseList2) { index, _ ->
+                Card(
+                    onClick = {
+                        Toast.makeText(
+                            context,
+                            courseList2[index].courseName + " selected..",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
                     modifier = Modifier
                         .padding(8.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.height(5.dp))
+                        .width(120.dp),
+                    elevation = 6.dp
+                )
+                {
+                    Column(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Spacer(modifier = Modifier.height(5.dp))
 
 //                    Image(
 //                        painter = painterResource(id = courseList[index].courseId),
@@ -63,18 +67,35 @@ fun customListView(context: Context,courseList2: List<Courses>) {
 //                        alignment = Alignment.Center
 //                    )
 
-                    Spacer(modifier = Modifier.height(5.dp))
+                        Spacer(modifier = Modifier.height(5.dp))
 
-                    Text(
+                        Text(
 
-                        text = courseList2[index].courseName,
+                            text = courseList2[index].courseName,
 
-                        modifier = Modifier.padding(4.dp),
+                            modifier = Modifier.padding(4.dp),
 
-                        color = Color.Black, textAlign = TextAlign.Center
-                    )
+                            color = Color.Black, textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
         }
+    } else {
+        val yes=true
+
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        Text(
+
+            text = "هیچ درسی اضافه نشده است ",
+
+            modifier = Modifier.padding(4.dp).size(25.dp),
+
+            color = Color.Black, textAlign = TextAlign.Center
+        )
+
     }
+
 }
