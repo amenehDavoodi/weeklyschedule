@@ -1,6 +1,8 @@
 package com.example.weeklyschedule.presentation.ui.home
 
+import android.content.Context
 import android.graphics.drawable.Drawable
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,8 +31,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
+import com.example.weeklyschedule.data.local.CourseList
 import com.example.weeklyschedule.presentation.ui.ShareViewModel
 import com.example.weeklyschedule.presentation.ui.dateUtils.Utilities
+import dagger.hilt.android.internal.Contexts
 
 
 @Composable
@@ -88,7 +92,9 @@ fun HomeScreen(
 
                     }
                     Row {
-                        CustomListView(context = LocalContext.current,viewModel.coursesList)
+                        CustomListView(context = LocalContext.current, CourseList) {
+                            shareViewModel.addCourses()
+                        }
                     }
                 }
             }

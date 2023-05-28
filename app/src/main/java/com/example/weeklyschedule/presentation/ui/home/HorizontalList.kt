@@ -3,6 +3,7 @@ package com.example.weeklyschedule.presentation.ui.home
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,16 +19,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.weeklyschedule.R
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.di.util.Resource
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CustomListView(context: Context, courseList2: List<Courses>) {
+fun CustomListView(context: Context, courseList2: List<String>,addCourses:()->Unit) {
 
 
     if (courseList2.isNotEmpty()) {
@@ -37,7 +40,7 @@ fun CustomListView(context: Context, courseList2: List<Courses>) {
                     onClick = {
                         Toast.makeText(
                             context,
-                            courseList2[index].courseName + " selected..",
+                            courseList2[index]+ " selected..",
                             Toast.LENGTH_SHORT
                         ).show()
                     },
@@ -55,24 +58,24 @@ fun CustomListView(context: Context, courseList2: List<Courses>) {
                     ) {
                         Spacer(modifier = Modifier.height(5.dp))
 
-                        Image(
-                            painter = painterResource(id = courseList2[index].courseId),
-
-                            contentDescription = "img",
-
-                            modifier = Modifier
-                                .height(60.dp)
-                                .width(60.dp)
-                                .padding(5.dp),
-
-                            alignment = Alignment.Center
-                        )
+//                        Image(
+//                            painter = painterResource(id = R.drawable.pic[index]),
+//
+//                            contentDescription = "img",
+//
+//                            modifier = Modifier
+//                                .height(60.dp)
+//                                .width(60.dp)
+//                                .padding(5.dp),
+//
+//                            alignment = Alignment.Center
+//                        )
 
                         Spacer(modifier = Modifier.height(5.dp))
 
                         Text(
 
-                            text = courseList2[index].courseName,
+                            text = courseList2[index],
 
                             modifier = Modifier.padding(4.dp),
 
@@ -83,26 +86,37 @@ fun CustomListView(context: Context, courseList2: List<Courses>) {
             }
         }
     } else {
-        Image(
-            painter = painterResource(R.drawable.clock),
-
-            contentDescription = "img",
-
-            modifier = Modifier
-                .height(60.dp)
-                .width(60.dp)
-                .padding(5.dp),
-
-            alignment = Alignment.Center)
-
-        Spacer(modifier = Modifier.height(5.dp))
+//        Image(
+//            painter = painterResource(R.drawable.clock),
+//
+//            contentDescription = "img",
+//
+//            modifier = Modifier
+//                .height(60.dp)
+//                .width(60.dp)
+//                .padding(5.dp),
+//
+//            alignment = Alignment.Center)
+//
+//        Spacer(modifier = Modifier.height(5.dp))
 
         Text(
 
-            text = "",
+            text = "هیچ درسی نیست که نمایش داده بشه !!\n درسها رو الان اضافه کن :)",
 
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier
+                .padding(4.dp)
+                .fillMaxWidth()
+                .clickable {
+                    addCourses
+                    Toast.makeText(
+                        context,
+                        "ثبت شد !",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
+                },
+            fontSize = 15.sp,
             color = Color.Black, textAlign = TextAlign.Center
         )
     }
