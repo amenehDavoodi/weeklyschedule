@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Courses(
     @PrimaryKey
     val courseId: Int,
-    val courseName: String
+    val courseName: String,
 ){
     fun toCourses()=Courses(courseId,courseName)
 }

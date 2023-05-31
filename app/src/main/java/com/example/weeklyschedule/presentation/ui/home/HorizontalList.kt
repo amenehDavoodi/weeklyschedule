@@ -30,7 +30,7 @@ import com.example.weeklyschedule.di.util.Resource
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CustomListView(context: Context, courseList2: List<String>,addCourses:()->Unit) {
+fun CustomListView(context: Context, courseList2: List<Courses>,addCourses:()->Unit) {
 
 
     if (courseList2.isNotEmpty()) {
@@ -40,7 +40,7 @@ fun CustomListView(context: Context, courseList2: List<String>,addCourses:()->Un
                     onClick = {
                         Toast.makeText(
                             context,
-                            courseList2[index]+ " selected..",
+                            courseList2[index].courseName+ " selected..",
                             Toast.LENGTH_SHORT
                         ).show()
                     },
@@ -75,7 +75,7 @@ fun CustomListView(context: Context, courseList2: List<String>,addCourses:()->Un
 
                         Text(
 
-                            text = courseList2[index],
+                            text = courseList2[index].courseName,
 
                             modifier = Modifier.padding(4.dp),
 

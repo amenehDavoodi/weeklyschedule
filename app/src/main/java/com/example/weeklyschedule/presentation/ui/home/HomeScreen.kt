@@ -1,8 +1,6 @@
 package com.example.weeklyschedule.presentation.ui.home
 
-import android.content.Context
 import android.graphics.drawable.Drawable
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,21 +29,18 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
-import com.example.weeklyschedule.data.local.CourseList
 import com.example.weeklyschedule.presentation.ui.ShareViewModel
 import com.example.weeklyschedule.presentation.ui.dateUtils.Utilities
-import dagger.hilt.android.internal.Contexts
 
 
 @Composable
 fun HomeScreen(
-    navController: NavController, viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavController, homeViewModel: HomeViewModel = hiltViewModel(),
     shareViewModel:ShareViewModel= hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
     val imageVector: Drawable
 
-    shareViewModel.addCourses()
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = { TopAppBarScreen() }
@@ -79,7 +74,7 @@ fun HomeScreen(
                             )
                         }
                         val today=Utilities().shamsiToday
-                        DisplayTxtClock(" امروز :$today \n "+viewModel.showTime())
+                        DisplayTxtClock(" امروز :$today \n "+homeViewModel.showTime())
                     }
                     Row {
                         Text(
@@ -88,11 +83,12 @@ fun HomeScreen(
                             textAlign = TextAlign.Center,
                             color = Color.Black,
                             fontSize = 15.sp
+
                         )
 
                     }
                     Row {
-                        CustomListView(context = LocalContext.current, CourseList) {
+                        CustomListView(context = LocalContext.current, homeViewModel.coursesList) {
                             shareViewModel.addCourses()
                         }
                     }
