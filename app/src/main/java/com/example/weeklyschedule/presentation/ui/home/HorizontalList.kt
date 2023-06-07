@@ -14,7 +14,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -86,17 +89,7 @@ fun CustomListView(context: Context, courseList2: List<Courses>,addCourses:()->U
             }
         }
     } else {
-//        Image(
-//            painter = painterResource(R.drawable.clock),
-//
-//            contentDescription = "img",
-//
-//            modifier = Modifier
-//                .height(60.dp)
-//                .width(60.dp)
-//                .padding(5.dp),
-//
-//            alignment = Alignment.Center)
+        Icon(Icons.Filled.Warning,"",tint = Color.Red)
 //
 //        Spacer(modifier = Modifier.height(5.dp))
 

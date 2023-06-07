@@ -31,6 +31,9 @@ import androidx.navigation.NavController
 import com.example.weeklyschedule.R
 import com.example.weeklyschedule.presentation.ui.ShareViewModel
 import com.example.weeklyschedule.presentation.ui.dateUtils.Utilities
+import com.example.weeklyschedule.presentation.ui.home.drawer.Drawer
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -39,12 +42,16 @@ fun HomeScreen(
     shareViewModel:ShareViewModel= hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
-    val imageVector: Drawable
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { TopAppBarScreen() }
+        topBar = { TopAppBarScreen(scaffoldState) },
+        drawerContent = {
+            Drawer()
+        },
+        drawerGesturesEnabled = true,
     ) {
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -88,7 +95,9 @@ fun HomeScreen(
 
                     }
                     Row {
-                        CustomListView(context = LocalContext.current, homeViewModel.coursesList) {
+                        val courses = homeViewModel.coursesList
+
+                        CustomListView(context = LocalContext.current, courses) {
                             shareViewModel.addCourses()
                         }
                     }
