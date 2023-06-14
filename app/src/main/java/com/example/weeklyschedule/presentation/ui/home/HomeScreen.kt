@@ -1,6 +1,5 @@
 package com.example.weeklyschedule.presentation.ui.home
 
-import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +16,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,8 +33,6 @@ import com.example.weeklyschedule.R
 import com.example.weeklyschedule.presentation.ui.ShareViewModel
 import com.example.weeklyschedule.presentation.ui.dateUtils.Utilities
 import com.example.weeklyschedule.presentation.ui.home.drawer.Drawer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -42,6 +41,10 @@ fun HomeScreen(
     shareViewModel:ShareViewModel= hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
+    val allCourse by shareViewModel.allCourse.collectAsState(
+        initial = emptyList()
+    )
+
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -95,11 +98,7 @@ fun HomeScreen(
 
                     }
                     Row {
-                        val courses = homeViewModel.coursesList
-
-                        CustomListView(context = LocalContext.current, courses) {
-                            shareViewModel.addCourses()
-                        }
+                        CustomListView(context = LocalContext.current, allCourse,shareViewModel)
                     }
                 }
             }

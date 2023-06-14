@@ -24,9 +24,9 @@ class HomeViewModel @Inject constructor(
         return persianDate
     }
 
-    init {
-        getAllCourse()
-    }
+//    init {
+//        getAllCourse()
+//    }
 
     private fun getAllCourse() {
 

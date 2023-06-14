@@ -4,6 +4,7 @@ import com.example.weeklyschedule.data.local.daos.WeeklyScheduleDao
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
 import com.example.weeklyschedule.domain.HomeScheduleRepository
+import com.example.weeklyschedule.domain.ListCourses
 import kotlinx.coroutines.flow.Flow
 
 class HomeRepositoryImp (private val homeDao: WeeklyScheduleDao):
@@ -20,7 +21,6 @@ class HomeRepositoryImp (private val homeDao: WeeklyScheduleDao):
         return homeDao.observeADayById(dayId)
     }
 
-    override fun getAllCourse(): Flow<List<Courses>> {
-        return homeDao.observeAllCourse()
-    }
+    override fun getAllCourse(): Flow<ListCourses> = homeDao.observeAllCourse()
+
 }

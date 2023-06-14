@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
+import com.example.weeklyschedule.domain.ListCourses
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,7 +20,7 @@ interface WeeklyScheduleDao {
     fun observeADayById(id: Int): Flow<WeeklySchedule>
 
     @Query("SELECT * FROM Courses")
-    fun observeAllCourse(): Flow<List<Courses>>
+    fun observeAllCourse(): Flow<ListCourses>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(weeklySchedule: WeeklySchedule)

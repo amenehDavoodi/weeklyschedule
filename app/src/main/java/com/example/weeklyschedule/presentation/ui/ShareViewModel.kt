@@ -20,8 +20,11 @@ class ShareViewModel @Inject constructor(
     private val repositoryHome: HomeScheduleRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+//    val courses = repositoryHome.getAllCourse()
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
+    val allCourse = repositoryHome.getAllCourse()
 
 
         fun addCourses() {

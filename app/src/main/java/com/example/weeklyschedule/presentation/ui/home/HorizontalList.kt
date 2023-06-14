@@ -27,13 +27,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weeklyschedule.R
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.di.util.Resource
+import com.example.weeklyschedule.presentation.ui.ShareViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CustomListView(context: Context, courseList2: List<Courses>,addCourses:()->Unit) {
+fun CustomListView(context: Context, courseList2: List<Courses>,shareViewModel: ShareViewModel = hiltViewModel()) {
 
 
     if (courseList2.isNotEmpty()) {
@@ -101,7 +103,7 @@ fun CustomListView(context: Context, courseList2: List<Courses>,addCourses:()->U
                 .padding(4.dp)
                 .fillMaxWidth()
                 .clickable {
-                    addCourses
+                    shareViewModel.addCourses()
                     Toast.makeText(
                         context,
                         "ثبت شد !",

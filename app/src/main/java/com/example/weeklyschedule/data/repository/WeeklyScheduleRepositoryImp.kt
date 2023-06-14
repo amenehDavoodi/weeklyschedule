@@ -39,9 +39,8 @@ class WeeklyScheduleRepositoryImp (private val weeklyDao: WeeklyScheduleDao):
         weeklyDao.observeADayById(id)
     }
 
-     override fun getAllCourse(): Flow<List<Courses>> {
-        return weeklyDao.observeAllCourse()
-    }
+     override fun getAllCourse()= weeklyDao.observeAllCourse()
+
 
 
 }
