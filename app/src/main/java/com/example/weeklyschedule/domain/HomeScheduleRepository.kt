@@ -9,5 +9,6 @@ typealias ListCourses = List<Courses>
 interface HomeScheduleRepository {
     fun getAllWeek(): Flow<List<WeeklySchedule>>
     fun getTodayCourses():Flow<WeeklySchedule>
+    fun getTodayCourses(day:Int): Flow<List<Courses>>
     fun getAllCourse(): Flow<ListCourses>
 }

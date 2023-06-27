@@ -10,7 +10,7 @@ import com.example.weeklyschedule.data.local.entities.WeeklySchedule
 
 @Database(
     entities = [WeeklySchedule::class, Courses::class, Days::class,Breaks::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class WeeklyScheduleRoomDataBase:RoomDatabase() {

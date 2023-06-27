@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weeklyschedule.data.local.CourseList
+import com.example.weeklyschedule.data.local.CoursePicList
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.domain.HomeScheduleRepository
 import com.example.weeklyschedule.domain.WeeklyScheduleRepository
@@ -25,17 +26,18 @@ class ShareViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
     val allCourse = repositoryHome.getAllCourse()
+    val allWeek = repositoryHome.getAllWeek()
 
 
         fun addCourses() {
             for (i in 1 until (CourseList.size)) {
-                addNewCourse(i, CourseList[i])
+                addNewCourse(i, CourseList[i],CoursePicList[i])
             }
         }
-    private fun addNewCourse(id: Int, courseName: String) =
+    private fun addNewCourse(id: Int, courseName: String,coursePic:Int) =
         viewModelScope.launch {
             try {
-                repositoryWeekly.insertCourse(Courses(id, courseName))
+                repositoryWeekly.insertCourse(Courses(id, courseName, coursePic))
                 _eventFlow.emit(UiEvent.SaveWeeklySchedule)
             } catch (e: Exception) {
                 _eventFlow.emit(

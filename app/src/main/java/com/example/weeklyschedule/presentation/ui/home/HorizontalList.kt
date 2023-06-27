@@ -63,18 +63,18 @@ fun CustomListView(context: Context, courseList2: List<Courses>,shareViewModel: 
                     ) {
                         Spacer(modifier = Modifier.height(5.dp))
 
-//                        Image(
-//                            painter = painterResource(id = R.drawable.pic[index]),
-//
-//                            contentDescription = "img",
-//
-//                            modifier = Modifier
-//                                .height(60.dp)
-//                                .width(60.dp)
-//                                .padding(5.dp),
-//
-//                            alignment = Alignment.Center
-//                        )
+                        Image(
+                            painter = painterResource(id = courseList2[index].coursePic),
+
+                            contentDescription = "img",
+
+                            modifier = Modifier
+                                .height(60.dp)
+                                .width(60.dp)
+                                .padding(5.dp),
+
+                            alignment = Alignment.Center
+                        )
 
                         Spacer(modifier = Modifier.height(5.dp))
 

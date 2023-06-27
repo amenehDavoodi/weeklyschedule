@@ -17,9 +17,7 @@ class HomeRepositoryImp (private val homeDao: WeeklyScheduleDao):
         TODO("Not yet implemented")
     }
 
-    fun getTodayCourses(dayId:Int): Flow<WeeklySchedule> {
-        return homeDao.observeADayById(dayId)
-    }
+    override fun getTodayCourses(dayId:Int): Flow<List<Courses>> = homeDao.observeCoursesOfADayById(dayId)
 
     override fun getAllCourse(): Flow<ListCourses> = homeDao.observeAllCourse()
 

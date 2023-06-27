@@ -18,6 +18,9 @@ class HomeViewModel @Inject constructor(
 
     private var _cList = mutableListOf<Courses>()
     var coursesList: List<Courses> = _cList
+
+    val courseOfADay = repository.getTodayCourses(1)
+
     fun showTime(): String {
         val persianDate = Utilities().currentShamsidate
         val date = System.currentTimeMillis()
@@ -33,6 +36,19 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
 
             repository.getAllCourse().collect {
+                _cList= it as MutableList<Courses>
+
+
+            }
+
+        }
+
+    }
+    private fun getAllWeek() {
+
+        viewModelScope.launch {
+
+            repository.getAllWeek().collect {
                 _cList= it as MutableList<Courses>
 
 

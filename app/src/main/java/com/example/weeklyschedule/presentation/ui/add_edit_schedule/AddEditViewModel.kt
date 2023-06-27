@@ -3,6 +3,7 @@ package com.example.weeklyschedule.presentation.ui.add_edit_schedule
 import androidx.compose.runtime.*
 import androidx.lifecycle.*
 import com.example.weeklyschedule.data.local.CourseList
+import com.example.weeklyschedule.data.local.CoursePicList
 import com.example.weeklyschedule.data.local.DaysList
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.data.local.entities.WeeklySchedule
@@ -67,10 +68,10 @@ class AddEditViewModel @Inject constructor(
         }
     }
 
-    private fun addNewCourse(id: Int, courseName: String) =
+    private fun addNewCourse(id: Int, courseName: String,coursePic:Int) =
         viewModelScope.launch {
             try {
-                repository.insertCourse(Courses(id, courseName))
+                repository.insertCourse(Courses(id, courseName,coursePic))
                 _eventFlow.emit(UiEvent.SaveWeeklySchedule)
             } catch (e: Exception) {
                 _eventFlow.emit(
@@ -99,7 +100,7 @@ class AddEditViewModel @Inject constructor(
 
     fun addCourses() {
         for (i in 1 until (CourseList.size)) {
-            addNewCourse(i, CourseList[i])
+            addNewCourse(i, CourseList[i],CoursePicList[i])
         }
     }
 

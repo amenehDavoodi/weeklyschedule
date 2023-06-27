@@ -1,7 +1,9 @@
 package com.example.weeklyschedule.presentation.ui.home
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,8 +14,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,10 +43,16 @@ import com.example.weeklyschedule.presentation.ui.home.drawer.Drawer
 @Composable
 fun HomeScreen(
     navController: NavController, homeViewModel: HomeViewModel = hiltViewModel(),
-    shareViewModel:ShareViewModel= hiltViewModel()
+    shareViewModel: ShareViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
     val allCourse by shareViewModel.allCourse.collectAsState(
+        initial = emptyList()
+    )
+    val allCourseOfADay = homeViewModel.courseOfADay.collectAsState(
+        initial = emptyList()
+    )
+    val allWeek = shareViewModel.allWeek.collectAsState(
         initial = emptyList()
     )
 
@@ -75,7 +86,7 @@ fun HomeScreen(
                             shape = CircleShape,
                             elevation = 2.dp,
 
-                        ) {
+                            ) {
                             Image(
                                 painterResource(R.drawable.clock),
                                 contentDescription = "",
@@ -83,8 +94,8 @@ fun HomeScreen(
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
-                        val today=Utilities().shamsiToday
-                        DisplayTxtClock(" امروز :$today \n "+homeViewModel.showTime())
+                        val today = Utilities().shamsiToday
+                        DisplayTxtClock(" امروز :$today \n " + homeViewModel.showTime())
                     }
                     Row {
                         Text(
@@ -98,7 +109,31 @@ fun HomeScreen(
 
                     }
                     Row {
-                        CustomListView(context = LocalContext.current, allCourse,shareViewModel)
+                        CustomListView(context = LocalContext.current, allCourse, shareViewModel)
+                    }
+                    Row {
+                        if (allWeek.value.isEmpty()) {
+                            Icon(Icons.Filled.Warning, "", tint = Color.Red)
+                            Text(
+
+                                text = "هیچ درسی نیست که نمایش داده بشه !!\n درسها رو الان اضافه کن :)",
+
+                                modifier = Modifier
+                                    .padding(4.dp)
+                                    .fillMaxWidth()
+                                    .clickable {
+
+                                    },
+                                fontSize = 15.sp,
+                                color = Color.Black, textAlign = TextAlign.Center
+                            )
+                        } else {
+                            CustomListView(
+                                context = LocalContext.current,
+                                allCourseOfADay.value,
+                                shareViewModel
+                            )
+                        }
                     }
                 }
             }
