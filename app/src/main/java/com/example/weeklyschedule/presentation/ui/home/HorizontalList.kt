@@ -62,9 +62,9 @@ fun CustomListView(context: Context, courseList2: List<Courses>,shareViewModel: 
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Spacer(modifier = Modifier.height(5.dp))
-
+                        val pic=courseList2[index].coursePic
                         Image(
-                            painter = painterResource(id = courseList2[index].coursePic),
+                            painter = painterResource(id = pic),
 
                             contentDescription = "img",
 

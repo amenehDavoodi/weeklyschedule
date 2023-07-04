@@ -1,6 +1,5 @@
 package com.example.weeklyschedule.presentation.ui.home
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,6 +37,7 @@ import com.example.weeklyschedule.R
 import com.example.weeklyschedule.presentation.ui.ShareViewModel
 import com.example.weeklyschedule.presentation.ui.dateUtils.Utilities
 import com.example.weeklyschedule.presentation.ui.home.drawer.Drawer
+import com.example.weeklyschedule.presentation.ui.util.Screen
 
 
 @Composable
@@ -122,7 +122,8 @@ fun HomeScreen(
                                     .padding(4.dp)
                                     .fillMaxWidth()
                                     .clickable {
-
+                                        navController.navigate(Screen.AddEditScreen.route)
+//                                        navController.navigate(Screen.AddEditScreen)
                                     },
                                 fontSize = 15.sp,
                                 color = Color.Black, textAlign = TextAlign.Center

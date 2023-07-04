@@ -113,13 +113,9 @@ dependencies {
 
     def nav_version = "2.5.3"
 
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation "androidx.navigation:navigation-compose:2.5.3"
 //    implementation "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
 
-//    implementation 'dev.emad:persiandatepicker:1.0.11'
-//    implementation 'com.shawnlin:number-picker:2.4.11'
-
-//    implementation ("com.github.SirLordPouya:PersianLinearDatePicker:1.5.0")
 
 
 

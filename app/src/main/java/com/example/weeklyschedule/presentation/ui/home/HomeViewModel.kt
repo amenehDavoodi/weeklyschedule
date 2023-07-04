@@ -3,6 +3,7 @@ package com.example.weeklyschedule.presentation.ui.home
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weeklyschedule.data.local.DaysList
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.domain.HomeScheduleRepository
 import com.example.weeklyschedule.presentation.ui.dateUtils.Utilities
@@ -18,8 +19,10 @@ class HomeViewModel @Inject constructor(
 
     private var _cList = mutableListOf<Courses>()
     var coursesList: List<Courses> = _cList
+    private val today=Utilities().shamsiToday
+    private val index= DaysList.indexOf(today)
 
-    val courseOfADay = repository.getTodayCourses(1)
+    val courseOfADay = repository.getTodayCourses(index)
 
     fun showTime(): String {
         val persianDate = Utilities().currentShamsidate

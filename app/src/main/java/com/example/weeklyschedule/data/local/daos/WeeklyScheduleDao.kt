@@ -19,10 +19,9 @@ interface WeeklyScheduleDao {
     @Query("SELECT * FROM WeeklySchedule WHERE dayId = :id")
     fun observeADayById(id: Int): Flow<WeeklySchedule>
 
-    @Query("SELECT c.courseName,c.coursePic FROM Courses c " +
+    @Query("SELECT * FROM Courses c " +
             "INNER JOIN WeeklySchedule ws ON  c.courseId=ws.courseId " +
-            "INNER JOIN Days ON Days.dayId=ws.dayId " +
-            "INNER JOIN Breaks ON Breaks.id=ws.breakId WHERE dayId = :id ORDER BY Breaks.id ASC" )
+           "WHERE ws.dayId = :id ORDER BY breakId ASC")
     fun observeCoursesOfADayById(id: Int): Flow<List<Courses>>
 
     @Query("SELECT * FROM Courses")

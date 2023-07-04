@@ -29,7 +29,7 @@ object AppModule {
             appContext,
             WeeklyScheduleRoomDataBase::class.java,
             DATABASE_NAME
-        ).addMigrations(MIGRATION_2)
+        ).addMigrations(MIGRATION_2, MIGRATION_3)
             .build()
     }
 
@@ -46,23 +46,20 @@ object AppModule {
         return HomeRepositoryImp(db.weeklyScheduleDao)
     }
 
-    private val MIGRATION_1 = object : Migration(1, 1) {
-        override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("DROP TABLE IF EXISTS `WeeklySchedule`")
-        }
-    }
+
     private val MIGRATION_2 = object : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("ALTER TABLE weeklyschedule ADD COLUMN breakId INTEGER ")
-            database.execSQL("ALTER TABLE Courses ADD COLUMN coursePic INTEGER DEFAULT 0")
+            database.execSQL("ALTER TABLE WeeklySchedule ADD COLUMN breakId INTEGER NOT NULL")
+            database.execSQL("CREATE TABLE IF NOT EXISTS Breaks (id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL)")
+//            database.execSQL("ALTER TABLE Courses ADD COLUMN coursePic INTEGER DEFAULT 0")
 
         }
     }
-//    private val MIGRATION_3 = object : Migration(2, 3) {
-//        override fun migrate(database: SupportSQLiteDatabase) {
-//            database.execSQL("ALTER TABLE Courses ADD COLUMN coursePic INTEGER DEFAULT 0")
-//        }
-//    }
+    private val MIGRATION_3 = object : Migration(2, 3) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE Courses ADD COLUMN coursePic INTEGER NOT NULL DEFAULT 0")
+        }
+    }
 
 }
 

@@ -4,7 +4,7 @@ import com.example.weeklyschedule.R
 
 val DaysList = listOf(
     "شنبه",
-    "یکشنبه",
+    "يکشنبه",
     "دوشنبه",
     "سه شنبه",
     "چهارشنبه",
