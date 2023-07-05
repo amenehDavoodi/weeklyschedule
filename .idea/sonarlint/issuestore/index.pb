@@ -15,3 +15,13 @@ bapp/src/main/java/com/example/weeklyschedule/presentation/ui/add_edit_schedule/
 Mapp/src/main/java/com/example/weeklyschedule/domain/HomeScheduleRepository.kt,9\9\9918fe551700426bd5c325bb8df698401cc54490
 ~
 Napp/src/main/java/com/example/weeklyschedule/presentation/ui/ShareViewModel.kt,f\8\f895715906136de5bb0fa87a5fa91f4bc46e3230
+z
+Japp/src/main/java/com/example/weeklyschedule/data/local/daos/CoursesDao.kt,3\7\375a0f4b9fb1a3e0e74e74cd2cb9eb0b2355fdcf
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+t
+Dapp/src/main/java/com/example/weeklyschedule/data/local/DataLocal.kt,5\7\575eb50aaf2c63004c5aeaaada6e51282f575926
+l
+<app/src/main/java/com/example/weeklyschedule/di/AppModule.kt,9\3\93958cf0dc4b08d95b571bd7f041c7fa7ba2b8f2
+{
+Kapp/src/main/java/com/example/weeklyschedule/data/local/entities/Courses.kt,0\a\0a060095b451c881fb74a2c5c7225ecd42684c02

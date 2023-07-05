@@ -3,9 +3,11 @@ package com.example.weeklyschedule.presentation.ui.home
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,30 +24,48 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.weeklyschedule.R
 import com.example.weeklyschedule.data.local.entities.Courses
-import com.example.weeklyschedule.di.util.Resource
 import com.example.weeklyschedule.presentation.ui.ShareViewModel
+import com.example.weeklyschedule.presentation.ui.theme.Blue700
+import com.example.weeklyschedule.presentation.ui.theme.Green200
+import com.example.weeklyschedule.presentation.ui.theme.Orange200
+import com.example.weeklyschedule.presentation.ui.theme.Pink500
+import com.example.weeklyschedule.presentation.ui.theme.Purple200
+import com.example.weeklyschedule.presentation.ui.theme.Teal200
+import com.example.weeklyschedule.presentation.ui.theme.Yellow200
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CustomListView(context: Context, courseList2: List<Courses>,shareViewModel: ShareViewModel = hiltViewModel()) {
+fun CustomListView(
+    context: Context,
+    courseList2: List<Courses>,
+    shareViewModel: ShareViewModel = hiltViewModel()
+) {
 
 
     if (courseList2.isNotEmpty()) {
         LazyRow {
+            val colors = listOf(
+                Purple200,
+                Pink500,
+                Blue700,
+                Teal200,
+                Orange200,
+                Yellow200,
+                Green200
+            )
             itemsIndexed(courseList2) { index, item ->
                 Card(
                     onClick = {
                         Toast.makeText(
                             context,
-                            courseList2[index].courseName+ " selected..",
+                            courseList2[index].courseName + " selected..",
                             Toast.LENGTH_SHORT
                         ).show()
                     },
@@ -57,20 +77,21 @@ fun CustomListView(context: Context, courseList2: List<Courses>,shareViewModel: 
                 {
                     Column(
                         modifier = Modifier
-                            .padding(8.dp)
+
+                            .background(getBackground(index))
                             .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Spacer(modifier = Modifier.height(5.dp))
-                        val pic=courseList2[index].coursePic
+                        val pic = courseList2[index].coursePic
                         Image(
                             painter = painterResource(id = pic),
 
                             contentDescription = "img",
 
                             modifier = Modifier
-                                .height(60.dp)
-                                .width(60.dp)
+                                .fillMaxWidth()
+                                .fillMaxHeight()
                                 .padding(5.dp),
 
                             alignment = Alignment.Center
@@ -91,7 +112,7 @@ fun CustomListView(context: Context, courseList2: List<Courses>,shareViewModel: 
             }
         }
     } else {
-        Icon(Icons.Filled.Warning,"",tint = Color.Red)
+        Icon(Icons.Filled.Warning, "", tint = Color.Red)
 //
 //        Spacer(modifier = Modifier.height(5.dp))
 
@@ -104,16 +125,33 @@ fun CustomListView(context: Context, courseList2: List<Courses>,shareViewModel: 
                 .fillMaxWidth()
                 .clickable {
                     shareViewModel.addCourses()
-                    Toast.makeText(
-                        context,
-                        "ثبت شد !",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast
+                        .makeText(
+                            context,
+                            "ثبت شد !",
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
 
                 },
             fontSize = 15.sp,
             color = Color.Black, textAlign = TextAlign.Center
         )
     }
+
+
+}
+
+fun getBackground(index: Int): Color {
+    var bgColor: Color = Color.White
+    when (index % 6) {
+        0 -> bgColor = Purple200
+        1 -> bgColor = Pink500
+        2 -> bgColor = Blue700
+        3 -> bgColor = Teal200
+        4 -> bgColor = Orange200
+        5 -> bgColor = Yellow200
+    }
+    return bgColor
 
 }
