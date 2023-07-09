@@ -25,3 +25,11 @@ l
 <app/src/main/java/com/example/weeklyschedule/di/AppModule.kt,9\3\93958cf0dc4b08d95b571bd7f041c7fa7ba2b8f2
 {
 Kapp/src/main/java/com/example/weeklyschedule/data/local/entities/Courses.kt,0\a\0a060095b451c881fb74a2c5c7225ecd42684c02
+z
+Japp/src/main/java/com/example/weeklyschedule/data/local/entities/Breaks.kt,1\8\1838a5b31cc95e27615142f47fb0fd9e0348bd71
+Ž
+^app/src/main/java/com/example/weeklyschedule/data/local/database/WeeklyScheduleRoomDataBase.kt,f\e\fe4faab4ed67a377d3fac69b40dda0d5a3da442c
+‚
+Rapp/src/main/java/com/example/weeklyschedule/data/local/entities/WeeklySchedule.kt,5\3\534cb261207a53c17d245589926db7a26f1174df
+{
+Kapp/src/main/java/com/example/weeklyschedule/presentation/ui/theme/Theme.kt,0\c\0c72ff92020401c7dc0d547c248b5a8ffc428d27

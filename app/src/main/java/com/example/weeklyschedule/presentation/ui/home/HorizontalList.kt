@@ -1,6 +1,7 @@
 package com.example.weeklyschedule.presentation.ui.home
 
 import android.content.Context
+import android.view.View.OnClickListener
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -45,21 +46,13 @@ import com.example.weeklyschedule.presentation.ui.theme.Yellow200
 fun CustomListView(
     context: Context,
     courseList2: List<Courses>,
-    shareViewModel: ShareViewModel = hiltViewModel()
+    shareViewModel: ShareViewModel = hiltViewModel(),
+    onclick:OnClickListener
 ) {
 
 
     if (courseList2.isNotEmpty()) {
         LazyRow {
-            val colors = listOf(
-                Purple200,
-                Pink500,
-                Blue700,
-                Teal200,
-                Orange200,
-                Yellow200,
-                Green200
-            )
             itemsIndexed(courseList2) { index, item ->
                 Card(
                     onClick = {
@@ -113,8 +106,6 @@ fun CustomListView(
         }
     } else {
         Icon(Icons.Filled.Warning, "", tint = Color.Red)
-//
-//        Spacer(modifier = Modifier.height(5.dp))
 
         Text(
 
@@ -124,15 +115,7 @@ fun CustomListView(
                 .padding(4.dp)
                 .fillMaxWidth()
                 .clickable {
-                    shareViewModel.addCourses()
-                    Toast
-                        .makeText(
-                            context,
-                            "ثبت شد !",
-                            Toast.LENGTH_SHORT
-                        )
-                        .show()
-
+                    onclick
                 },
             fontSize = 15.sp,
             color = Color.Black, textAlign = TextAlign.Center

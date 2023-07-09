@@ -1,5 +1,7 @@
 package com.example.weeklyschedule.presentation.ui.home
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,6 +40,7 @@ import com.example.weeklyschedule.presentation.ui.ShareViewModel
 import com.example.weeklyschedule.presentation.ui.dateUtils.Utilities
 import com.example.weeklyschedule.presentation.ui.home.drawer.Drawer
 import com.example.weeklyschedule.presentation.ui.util.Screen
+import dagger.hilt.android.internal.Contexts
 
 
 @Composable
@@ -45,6 +48,8 @@ fun HomeScreen(
     navController: NavController, homeViewModel: HomeViewModel = hiltViewModel(),
     shareViewModel: ShareViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val scaffoldState = rememberScaffoldState()
     val allCourse by shareViewModel.allCourse.collectAsState(
         initial = emptyList()
@@ -109,7 +114,15 @@ fun HomeScreen(
 
                     }
                     Row {
-                        CustomListView(context = LocalContext.current, allCourse, shareViewModel)
+                        CustomListView(
+                            context = context,
+                            allCourse,
+                            shareViewModel,
+                            onclick = {
+                                showToast(context, "ثبت شد!")
+                                shareViewModel.addCourses()
+                            }
+                        )
                     }
                     Row {
                         if (allWeek.value.isEmpty()) {
@@ -130,9 +143,14 @@ fun HomeScreen(
                             )
                         } else {
                             CustomListView(
-                                context = LocalContext.current,
+                                context,
                                 allCourseOfADay.value,
-                                shareViewModel
+                                shareViewModel,
+                                onclick = {
+                                    navController.navigate(Screen.AddEditScreen.route)
+
+                                }
+
                             )
                         }
                     }
@@ -140,5 +158,10 @@ fun HomeScreen(
             }
         }
     }
+
+
 }
 
+fun showToast(context: Context, msg: String) {
+    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+}
