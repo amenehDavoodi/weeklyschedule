@@ -1,3 +1,5 @@
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package com.example.weeklyschedule.presentation.ui.home
 
 import android.content.Context
@@ -33,7 +35,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.weeklyschedule.data.local.entities.Courses
 import com.example.weeklyschedule.presentation.ui.ShareViewModel
 import com.example.weeklyschedule.presentation.ui.theme.Blue700
-import com.example.weeklyschedule.presentation.ui.theme.Green200
 import com.example.weeklyschedule.presentation.ui.theme.Orange200
 import com.example.weeklyschedule.presentation.ui.theme.Pink500
 import com.example.weeklyschedule.presentation.ui.theme.Purple200
