@@ -54,7 +54,7 @@ fun CustomListView(
 
     if (courseList2.isNotEmpty()) {
         LazyRow {
-            itemsIndexed(courseList2) { index, item ->
+            itemsIndexed(courseList2) { index, _ ->
                 Card(
                     onClick = {
                         Toast.makeText(

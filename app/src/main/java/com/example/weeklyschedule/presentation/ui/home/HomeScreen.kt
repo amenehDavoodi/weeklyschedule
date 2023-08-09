@@ -1,6 +1,7 @@
 package com.example.weeklyschedule.presentation.ui.home
 
 import android.content.Context
+import android.widget.TextClock
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.weeklyschedule.R
@@ -85,6 +87,12 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+
+                        val today = Utilities().shamsiToday
+                        DisplayTxtClock(" امروز :$today \n\n " + homeViewModel.showTime())
+                    }
+
+                    Row{
                         Card(
                             modifier = Modifier
                                 .size(58.dp),
@@ -98,9 +106,18 @@ fun HomeScreen(
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier.fillMaxSize()
                             )
+
                         }
-                        val today = Utilities().shamsiToday
-                        DisplayTxtClock(" امروز :$today \n " + homeViewModel.showTime())
+                        AndroidView(
+                            factory = { context ->
+                                TextClock(context).apply {
+                                    format12Hour?.let { this.format12Hour = "hh:mm:ss a" }
+                                    timeZone?.let { this.timeZone = it }
+                                    textSize.let { this.textSize = 35f }
+                                }
+                            },
+                            modifier = Modifier.padding(5.dp)
+                        )
                     }
                     Row {
                         Text(

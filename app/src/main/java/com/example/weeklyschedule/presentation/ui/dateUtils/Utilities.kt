@@ -1,5 +1,6 @@
 package com.example.weeklyschedule.presentation.ui.dateUtils
 
+import java.text.NumberFormat
 import java.util.Date
 import java.util.Locale
 
@@ -9,8 +10,11 @@ class Utilities {
         get() {
             val loc = Locale("fa_IR")
             val sc = SolarCalendar()
-            return sc.year.toString() + "/" +
-                sc.strMonth+ "/" + java.lang.String.format(loc, "%02d", sc.date)
+            val nf= NumberFormat.getInstance(Locale("fa"))
+            nf.isGroupingUsed=false
+
+            return nf.format(sc.year)+ "  " +
+                sc.strMonth+ "  " + nf.format(sc.date)
         }
     val shamsiToday: String
         get() {

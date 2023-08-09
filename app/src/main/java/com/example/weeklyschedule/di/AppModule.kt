@@ -49,7 +49,7 @@ object AppModule {
 
     private val MIGRATION_2 = object : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("ALTER TABLE WeeklySchedule ADD COLUMN breakId INTEGER NOT NULL")
+//            database.execSQL("ALTER TABLE WeeklySchedule ADD COLUMN breakId INTEGER NOT NULL")
             database.execSQL("CREATE TABLE IF NOT EXISTS Breaks (id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL)")
 //            database.execSQL("ALTER TABLE Courses ADD COLUMN coursePic INTEGER DEFAULT 0")
 

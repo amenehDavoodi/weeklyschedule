@@ -38,15 +38,6 @@ fun DisplayTxtClock(today:String) {
             fontSize = 20.sp,
         )
         Spacer(modifier = Modifier.height(20.dp))
-        AndroidView(
-            factory = { context ->
-                TextClock(context).apply {
-                    format12Hour?.let { this.format12Hour = "hh:mm:ss a" }
-                    timeZone?.let { this.timeZone = it }
-                    textSize.let { this.textSize = 35f }
-                }
-            },
-            modifier = Modifier.padding(5.dp)
-        )
+
     }
 }
